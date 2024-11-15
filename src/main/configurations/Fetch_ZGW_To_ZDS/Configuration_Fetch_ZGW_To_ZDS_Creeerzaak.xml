@@ -1,0 +1,66 @@
+<Module xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="../FrankConfig.xsd">
+    <Adapter name="Fetch_ZGW_To_ZDS_Creeerzaak"
+        active="${Fetch_ZGW_To_ZDS_Creeerzaak.Active}"
+        description="">
+
+        <Receiver
+            name="Fetch_ZGW_To_ZDS_Creeerzaak"
+            transactionAttribute="Required"
+            pollInterval="5"
+            maxRetries="0"
+        >
+            <MessageStoreListener
+                name="Fetch_ZGW_To_ZDS_Creeerzaak"
+                slotId="${instance.name}/Fetch_ZGW_To_ZDS_Creeerzaak"
+                peekUntransacted="true"
+                statusValueInProcess="I"
+            />
+        </Receiver>
+        <Pipeline>
+            <Exits>
+                <Exit name="EXIT" state="SUCCESS" />
+                <Exit name="EXCEPTION" state="ERROR" />
+            </Exits>
+
+            <SenderPipe
+                name="CallGeefZaakdetails_Lv01"
+                storeResultInSessionKey="ZaakDetailsResult">
+                <IbisLocalSender
+                    name="CallGetZgwZaakSender"
+                    javaListener="GeefZaakdetails_Lv01"
+                    returnedSessionKeys="Error">
+                </IbisLocalSender>
+                <Forward name="success" path="GetAuthorizationHeaderForZakenApi" />
+                <Forward name="exception" path="EXCEPTION" />
+            </SenderPipe>
+
+            <SenderPipe name="GetAuthorizationHeaderForZakenApi"
+                getInputFromFixedValue="&lt;dummy/&gt;">
+                <IbisLocalSender
+                    name="GetAuthorizationHeaderForZakenApiSender"
+                    javaListener="GenerateAuthorizationHeaderForZakenApi"
+                    returnedSessionKeys="Error,Authorization">
+                </IbisLocalSender>
+                <Forward name="success" path="SendZaakDetailsToEndpointSender" />
+                <Forward name="exception" path="EXCEPTION" />
+            </SenderPipe>
+
+            <!--send
+            to an endpoint as 'creerzaak' xml-->
+            <SenderPipe name="SendZaakDetailsToEndpointSender" getInputFromSessionKey="ZaakDetailsResult">
+                <HttpSender
+                    name="SendZaakDetailsToEndpoint"
+                    methodType="POST"
+                    headersParams="Authorization,Accept-Crs"
+                    timeout="${openzaak2zds.zgw.zaken-api.timeout}"
+                />
+                <Param name="url" value="${endpointForCreeerZaak}" />
+                <Param name="Accept-Crs" value="EPSG:4326" />
+                <Param name="Authorization" sessionKey="Authorization" />
+                <Forward name="success" path="EXIT" />
+                <Forward name="exception" path="EXCEPTION" />
+            </SenderPipe>
+        </Pipeline>
+    </Adapter>
+</Module>

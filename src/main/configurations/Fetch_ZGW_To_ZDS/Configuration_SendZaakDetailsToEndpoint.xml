@@ -1,0 +1,32 @@
+<Module xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../FrankConfig.xsd">
+    <Adapter name="GeefZaakdetails_Lv01"
+        active="${GeefZaakdetails_Lv01.Active}"
+        description="">
+
+        <Receiver name="GeefZaakdetails_Lv01">
+            <JavaListener name="GeefZaakdetails_Lv01" returnedSessionKeys="Error" />
+        </Receiver>
+
+        <Pipeline>
+            <Exits>
+                <Exit name="EXIT" state="SUCCESS"/>
+                <Exit name="EXCEPTION" state="ERROR"/>
+            </Exits>
+           
+            <!--send to an endpoint as 'creerzaak' xml-->
+            <SenderPipe name="SendZaakDetailsToEndpointSender">
+				<HttpSender 
+					name="SendZaakDetailsToEndpoint" 
+					methodType="POST"
+					headersParams="Authorization,Accept-Crs"
+                    timeout="${openzaak2zds.zgw.zaken-api.timeout}"
+				/>
+                <Param name="url" value="" />
+                <Param name="Accept-Crs" value="EPSG:4326"/>
+                <Param name="Authorization"  sessionKey="Authorization" />
+                <Forward name="success" path="EXIT" />
+                <Forward name="exception" path="EXCEPTION" />
+			</SenderPipe>
+        </Pipeline>
+    </Adapter>
+</Module>

@@ -1,0 +1,87 @@
+{
+    "profile": [
+        {
+            "zaakTypeIdentificatie": "B9999",
+            "endCaseEndDate": {
+                "coalesceResultaat": "Onbekend"
+            },
+            "endDateAndResultLastStatus": {
+                "coalesceResultaat": "Onbekend"
+            }
+        },
+        {
+            "zaakTypeIdentificatie": "B1210",
+            "endDateAndResultLastStatus": {
+                "coalesceResultaat":"Vergunningvrij" 
+            }
+        },
+        {
+            "zaakTypeIdentificatie": "B1026",
+            "endCaseEndDate": {
+                "coalesceResultaat": "Toegekend"
+            }
+        },
+        {
+            "zaakTypeIdentificatie": "B0208",
+            "endCaseEndDate": {
+                "coalesceResultaat":"Uitgereikt" 
+            },
+            
+            "endDateAndResultLastStatus": {
+                "coalesceResultaat": "Aanvraag geannuleerd"
+            }
+        },
+        {
+            "zaakTypeIdentificatie": "IEIAZS",
+            "ignoreEindStatusInActualiseerZaakStatus": "true"
+        },
+        {
+            "zaakTypeIdentificatie": "IEIAZS-B",
+            "ignoreEindStatusInActualiseerZaakStatus": "true",
+            "endCaseEndDate": {
+                "coalesceResultaat": "Gave a thing"
+            }
+        },
+        {
+            "zaakTypeIdentificatie": "IEIAZS-C",
+            "ignoreEindStatusInActualiseerZaakStatus": "true",
+            "endDateAndResultLastStatus": {
+                "coalesceResultaat": "Gave a thing"
+            }
+        },
+        {
+            "zaakTypeIdentificatie": "IEIAZS-D",
+            "ignoreEindStatusInActualiseerZaakStatus": "true",
+            "endCaseEndDate": {
+                "coalesceResultaat": "Gave a thing"
+            },
+            "endDateAndResultLastStatus": {
+                "coalesceResultaat": "Gave a thing"
+            }
+        },
+        {
+            "zaakTypeIdentificatie": "VO-A",
+            "valueOverrides": [
+            {
+                "key": "zgw.zaken-api.zaken.zaak.betalingsindicatie",
+                "value": "nvt"
+            },
+            {
+                "key": "zgw.zaken-api.rollen.rol.betrokkeneIdentificatie.geslachtsnaam",
+                "value": "fromValueOverride",
+                "condition": "true()"
+            },
+            {
+                "key": "zgw.zaken-api.rollen.rol.betrokkeneIdentificatie.annIdentificatie",
+                "value": "${extraElementen:kvkNummer}",
+                "condition": "true()"
+            },
+            {
+                "key": "zgw.zaken-api.zaken.zaak.vertrouwelijkheidaanduiding",
+                "value": "${extraElementen:vertrouwelijkheidaanduiding}",
+                "condition": "true()"
+            }
+            ]
+        }
+    ]
+}

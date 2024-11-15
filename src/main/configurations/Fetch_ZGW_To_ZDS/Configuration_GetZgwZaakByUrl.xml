@@ -1,0 +1,64 @@
+<Module xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../FrankConfig.xsd">
+    <Adapter name="GetZgwZaakByUrl"
+        active="${GetZgwZaakByUrl.Active}"
+        description="">
+
+        <Receiver name="GetZgwZaakByUrl">
+            <JavaListener name="GetZgwZaakByUrl" returnedSessionKeys="Error" />
+        </Receiver>
+
+        <Pipeline>
+            <Exits>
+                <Exit name="EXIT" state="SUCCESS" />
+                <Exit name="EXCEPTION" state="ERROR" />
+            </Exits>
+
+            <SenderPipe name="GetAuthorizationHeaderForZakenApi"
+                getInputFromFixedValue="&lt;dummy/&gt;">
+                <IbisLocalSender
+                    name="GetAuthorizationHeaderForZakenApiSender"
+                    javaListener="GenerateAuthorizationHeaderForZakenApi"
+                    returnedSessionKeys="Error,Authorization">
+                </IbisLocalSender>
+                <Forward name="success" path="GetZgwZaakByUrl" />
+                <Forward name="exception" path="EXCEPTION" />
+            </SenderPipe>
+
+			<SenderPipe name="GetZgwZaakByUrl"
+                getInputFromFixedValue="&lt;dummy/&gt;">
+				<HttpSender 
+					name="GetZgwZaakByUrlSender" 
+					methodType="GET"
+					headersParams="Authorization,Accept-Crs"
+                    timeout="${openzaak2zds.zgw.zaken-api.timeout}"
+				/>
+                <Param name="url" sessionKey="Url"/>
+                <Param name="Accept-Crs" value="EPSG:4326"/>
+                <Param name="Authorization"  sessionKey="Authorization"/>
+                <Forward name="success" path="JsonToXml" />
+                <Forward name="exception" path="ErrorJsonToXml" />
+			</SenderPipe>
+            <JsonPipe name="ErrorJsonToXml">
+                <Forward name="success" path="buildErrorMsg" />
+            </JsonPipe>
+            <XsltPipe name="buildErrorMsg"
+                styleSheetName="xsl/ParseNegativeHttpResult.xsl">
+                <Param name="senderPipeName" value="GetZgwZaakByUrl" />
+                <Forward name="success" path="EXCEPTION" />
+            </XsltPipe>
+
+            <JsonPipe name="JsonToXml">
+                <Forward name="success" path="UnwrapOpenZaakApiEnvelopeToSingle"/>
+            </JsonPipe>
+
+            <XsltPipe
+                name="UnwrapOpenZaakApiEnvelopeToSingle"
+                styleSheetName="xsl/UnwrapOpenZaakApiEnvelopeToSingle.xslt"
+                >
+                <Param name="Type" value="ZgwZaak"/>
+                <Forward name="success" path="EXIT"/>
+                <Forward name="exception" path="EXCEPTION"/>
+            </XsltPipe>
+        </Pipeline>
+    </Adapter>
+</Module>

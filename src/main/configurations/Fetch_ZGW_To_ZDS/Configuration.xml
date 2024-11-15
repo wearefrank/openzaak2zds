@@ -1,0 +1,55 @@
+<!DOCTYPE Configuration [
+	<!ENTITY ApplyValueOverridesZgwToZds 								SYSTEM "Configuration_ApplyValueOverridesZgwToZds.xml">
+	<!ENTITY GeefZaakdetails_Lv01 										SYSTEM "Configuration_GeefZaakdetails_Lv01.xml">
+	<!ENTITY GetRollenByBsn 											SYSTEM "Configuration_GetRollenByBsn.xml">
+	<!ENTITY GetZaakDetailsByRol 										SYSTEM "Configuration_GetZaakDetailsByRol.xml">
+	<!ENTITY GetZaakTypeByUrl 											SYSTEM "Configuration_GetZaakTypeByUrl.xml">
+	<!ENTITY GetZdsZaakFromZgw 											SYSTEM "Configuration_GetZdsZaakFromZgw.xml">
+	<!ENTITY GetZgwRolesByZaakUrl 										SYSTEM "Configuration_GetZgwRolesByZaakUrl.xml">
+	<!ENTITY GetZgwZaak 												SYSTEM "Configuration_GetZgwZaak.xml">
+	<!ENTITY GetZgwZaakByUrl 											SYSTEM "Configuration_GetZgwZaakByUrl.xml">
+	<!ENTITY ImportFromLocalFS 											SYSTEM "Configuration_ImportFromLocalFS.xml">
+	<!ENTITY MapZdsDeelzakenFromZgwDeelzaken 							SYSTEM "Configuration_MapZdsDeelzakenFromZgwDeelzaken.xml">
+	<!ENTITY MapZdsHeeftFromZgwStatus 									SYSTEM "Configuration_MapZdsHeeftFromZgwStatus.xml">
+	<!ENTITY MapZdsRelevanteAndereZaakFromZgwRelevanteAndereZaken 		SYSTEM "Configuration_MapZdsRelevanteAndereZaakFromZgwRelevanteAndereZaken.xml">
+	<!ENTITY MapZdsRolFromZgwRol 										SYSTEM "Configuration_MapZdsRolFromZgwRol.xml">
+	<!ENTITY Notificaties_Create 										SYSTEM "Configuration_Notificaties_Create.xml">
+	<!ENTITY Zaak_Create 												SYSTEM "Configuration_Zaak_Create.xml">
+	<!ENTITY Notificaties_Subscribe 									SYSTEM "Configuration_Notificaties_Subscribe.xml">
+	<!ENTITY Zaken_GetZgwRolTypeByUrl 									SYSTEM "Configuration_Zaken_GetZgwRolTypeByUrl.xml">
+	<!ENTITY Zaken_GetZgwStatusByZaakUrl 								SYSTEM "Configuration_Zaken_GetZgwStatusByZaakUrl.xml">
+	<!ENTITY ResolveProfileValues 										SYSTEM "Configuration_ResolveProfileValues.xml">
+	<!ENTITY GetZgwStatusTypeByUrl 										SYSTEM "Configuration_GetZgwStatusTypeByUrl.xml">
+	<!ENTITY Fetch_ZGW_To_ZDS_Creeerzaak 								SYSTEM "Configuration_Fetch_ZGW_To_ZDS_Creeerzaak.xml">
+	<!ENTITY GenerateAuthorizationHeaderForCatalogiApi     				SYSTEM "Configuration_GenerateAuthorizationHeaderForCatalogiApi.xml">
+	<!ENTITY GenerateAuthorizationHeaderForZakenApi         			SYSTEM "Configuration_GenerateAuthorizationHeaderForZakenApi.xml">
+	<!ENTITY GenerateAuthorizationHeaderForNotificatiesApi         		SYSTEM "Configuration_GenerateAuthorizationHeaderForNotificatiesApi.xml">
+]>
+
+<Configuration name="Fetch_ZGW_To_ZDS">
+	&ApplyValueOverridesZgwToZds;
+	&GeefZaakdetails_Lv01;
+	&GetRollenByBsn;
+	&GetZaakDetailsByRol;
+	&GetZaakTypeByUrl;
+	&GetZdsZaakFromZgw;
+	&GetZgwRolesByZaakUrl;
+	&GetZgwZaak;
+	&GetZgwZaakByUrl;
+	&ImportFromLocalFS;
+	&MapZdsDeelzakenFromZgwDeelzaken;
+	&MapZdsHeeftFromZgwStatus;
+	&MapZdsRelevanteAndereZaakFromZgwRelevanteAndereZaken;
+	&MapZdsRolFromZgwRol;
+	&Notificaties_Create;
+	&Zaak_Create;
+	&Notificaties_Subscribe;
+	&Zaken_GetZgwStatusByZaakUrl;
+	&Zaken_GetZgwRolTypeByUrl;
+	&ResolveProfileValues;
+	&GetZgwStatusTypeByUrl;
+	&Fetch_ZGW_To_ZDS_Creeerzaak;
+	&GenerateAuthorizationHeaderForCatalogiApi;
+	&GenerateAuthorizationHeaderForZakenApi;
+	&GenerateAuthorizationHeaderForNotificatiesApi;
+</Configuration>

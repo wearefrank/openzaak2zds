@@ -1,0 +1,39 @@
+<Module xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../FrankConfig.xsd">
+    <Adapter name="MapZdsRelevanteAndereZaakFromZgwRelevanteAndereZaken"
+    active="${MapZdsRelevanteAndereZaakFromZgwRelevanteAndereZaken.Active}"
+    description="">
+    
+    <Receiver name="MapZdsRelevanteAndereZaakFromZgwRelevanteAndereZaken">
+        <JavaListener name="MapZdsRelevanteAndereZaakFromZgwRelevanteAndereZaken"
+            returnedSessionKeys="Error" />
+    </Receiver>
+    
+    <Pipeline>
+            <Exits>
+                <Exit name="EXIT" state="SUCCESS"/>
+                <Exit name="EXCEPTION" state="ERROR"/>
+            </Exits>
+
+            <SenderPipe
+                name="GetZgwRelevanteAndereZaakSender"
+                storeResultInSessionKey="ZgwRelevanteAndereZaak">
+                <IbisLocalSender
+                    name="GetZgwRelevanteAndereZaakLocalSender"
+                    javaListener="GetZgwZaakByUrl"
+                    returnedSessionKeys="Error">
+                    <Param name="Url" xpathExpression="/relevanteAndereZaken/url" type="STRING"/>
+                </IbisLocalSender>
+                <Forward name="success" path="CreateZdsHeeftBetrekkingOpAndere"/>
+                <Forward name="exception" path="EXCEPTION" />
+            </SenderPipe>
+
+            <XsltPipe name="CreateZdsHeeftBetrekkingOpAndere"
+                styleSheetName="xsl/CreateZdsHeeftBetrekkingOpAndere.xslt"
+                >
+                <Param name="ZgwZaak" sessionKey="ZgwRelevanteAndereZaak" type="DOMDOC"/>
+                <Forward name="success" path="EXIT"/>
+            </XsltPipe>
+
+        </Pipeline>
+    </Adapter>
+</Module>
