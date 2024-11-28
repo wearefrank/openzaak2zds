@@ -26,7 +26,7 @@
 
             <!--  Notificaties API has 401 and 403 the wrong way around. It expects 403 if there is
             no authorization present.-->
-            <XmlIfPipe
+            <IfPipe
                 name="CheckForbidden"
                 getInputFromSessionKey="headers"
                 preserveInput="true"
@@ -34,9 +34,9 @@
             >
                 <Forward name="then" path="Forbidden" />
                 <Forward name="else" path="CheckAuthorized" />
-            </XmlIfPipe>
+            </IfPipe>
 
-            <XmlIfPipe
+            <IfPipe
                 name="CheckAuthorized"
                 getInputFromSessionKey="headers"
                 preserveInput="true"
@@ -47,7 +47,7 @@
                     hidden="true" />
                 <Forward name="then" path="Unauthorized" />
                 <Forward name="else" path="JsonToXml" />
-            </XmlIfPipe>
+            </IfPipe>
 
             <JsonPipe
                 name="JsonToXml"
@@ -55,14 +55,14 @@
                 <Forward name="success" path="HandleTestChannelMessage" />
             </JsonPipe>
 
-            <XmlIfPipe
+            <IfPipe
                 name="HandleTestChannelMessage"
                 preserveInput="true"
                 xpathExpression="//kanaal = 'test'"
             >
                 <Forward name="then" path="Created" />
                 <Forward name="else" path="GetAuthorizationHeaderForObjectsApi" />
-            </XmlIfPipe>
+            </IfPipe>
 
             <SenderPipe
                 name="GetAuthorizationHeaderForObjectsApi"

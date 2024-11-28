@@ -37,7 +37,7 @@
                 <Forward name="exception" path="EXCEPTION"/>
             </XsltPipe>
 
-            <XmlIfPipe name="MatchHeeftBetrekkingOpOmschrijving"
+            <IfPipe name="MatchHeeftBetrekkingOpOmschrijving"
                 xpathExpression="lower-case($lh)=lower-case($rh)"
                 >
                 <Param name="lh" xpathExpression="$RolMapping/rolMapping/heeftBetrekkingOp">
@@ -46,7 +46,7 @@
                 <Param name="rh" xpathExpression="/root/omschrijving" type="STRING"/>
                 <Forward name="then" path="StoreHeeftBetrekkingOpKeys"/>
                 <Forward name="else" path="MatchHeeftAlsBelanghebbendeOmschrijving"/>
-            </XmlIfPipe>
+            </IfPipe>
 
             <PutInSessionPipe name="StoreHeeftBetrekkingOpKeys">
 				<Param name="RolNaam" value="heeftBetrekkingOp" type="STRING"/>
@@ -54,7 +54,7 @@
                 <Forward name="success" path="MapZdsRolFromZgwRol"/>
 			</PutInSessionPipe>
 
-            <XmlIfPipe name="MatchHeeftAlsBelanghebbendeOmschrijving"
+            <IfPipe name="MatchHeeftAlsBelanghebbendeOmschrijving"
                 xpathExpression="lower-case($lh)=lower-case($rh)"
                 >
                 <Param name="lh" xpathExpression="$RolMapping/rolMapping/heeftAlsBelanghebbende" type="STRING">
@@ -63,7 +63,7 @@
                 <Param name="rh" xpathExpression="/root/omschrijving" type="STRING"/>
                 <Forward name="then" path="StoreHeeftAlsBelanghebbendeKeys"/>
                 <Forward name="else" path="MatchHeeftAlsInitiatorOmschrijving"/>
-            </XmlIfPipe>
+            </IfPipe>
 
             <PutInSessionPipe name="StoreHeeftAlsBelanghebbendeKeys">
 				<Param name="RolNaam" value="heeftAlsBelanghebbende" type="STRING"/>
@@ -71,7 +71,7 @@
                 <Forward name="success" path="MapZdsRolFromZgwRol"/>
 			</PutInSessionPipe>
 
-            <XmlIfPipe name="MatchHeeftAlsInitiatorOmschrijving"
+            <IfPipe name="MatchHeeftAlsInitiatorOmschrijving"
                 xpathExpression="lower-case($lh)=lower-case($rh)"
                 >
                 <Param name="lh" xpathExpression="$RolMapping/rolMapping/heeftAlsInitiator" type="STRING">
@@ -80,7 +80,7 @@
                 <Param name="rh" xpathExpression="/root/omschrijving" type="STRING"/>
                 <Forward name="then" path="StoreHeeftAlsInitiatorKeys"/>
                 <Forward name="else" path="MatchHeeftAlsUitvoerendeOmschrijving"/>
-            </XmlIfPipe>
+            </IfPipe>
 
             <PutInSessionPipe name="StoreHeeftAlsInitiatorKeys">
 				<Param name="RolNaam" value="heeftAlsInitiator" type="STRING"/>
@@ -88,7 +88,7 @@
                 <Forward name="success" path="MapZdsRolFromZgwRol"/>
 			</PutInSessionPipe>
 
-            <XmlIfPipe name="MatchHeeftAlsUitvoerendeOmschrijving"
+            <IfPipe name="MatchHeeftAlsUitvoerendeOmschrijving"
                 xpathExpression="lower-case($lh)=lower-case($rh)"
                 >
                 <Param name="lh" xpathExpression="$RolMapping/rolMapping/heeftAlsUitvoerende" type="STRING">
@@ -97,7 +97,7 @@
                 <Param name="rh" xpathExpression="/root/omschrijving" type="STRING"/>
                 <Forward name="then" path="StoreHeeftAlsUitvoerendeKeys"/>
                 <Forward name="else" path="MatchHeeftAlsVerantwoordelijkeOmschrijving"/>
-            </XmlIfPipe>
+            </IfPipe>
 
             <PutInSessionPipe name="StoreHeeftAlsUitvoerendeKeys">
 				<Param name="RolNaam" value="heeftAlsUitvoerende" type="STRING"/>
@@ -105,7 +105,7 @@
                 <Forward name="success" path="MapZdsRolFromZgwRol"/>
 			</PutInSessionPipe>
 
-            <XmlIfPipe name="MatchHeeftAlsVerantwoordelijkeOmschrijving"
+            <IfPipe name="MatchHeeftAlsVerantwoordelijkeOmschrijving"
                 xpathExpression="lower-case($lh)=lower-case($rh)"
                 >
                 <Param name="lh" xpathExpression="$RolMapping/rolMapping/heeftAlsVerantwoordelijke" type="STRING">
@@ -114,7 +114,7 @@
                 <Param name="rh" xpathExpression="/root/omschrijving" type="STRING"/>
                 <Forward name="then" path="StoreHeeftAlsVerantwoordelijkeKeys"/>
                 <Forward name="else" path="MatchHeeftAlsGemachtigdeOmschrijving"/>
-            </XmlIfPipe>
+            </IfPipe>
 
             <PutInSessionPipe name="StoreHeeftAlsVerantwoordelijkeKeys">
 				<Param name="RolNaam" value="heeftAlsVerantwoordelijke" type="STRING"/>
@@ -122,7 +122,7 @@
                 <Forward name="success" path="MapZdsRolFromZgwRol"/>
 			</PutInSessionPipe>
 
-            <XmlIfPipe name="MatchHeeftAlsGemachtigdeOmschrijving"
+            <IfPipe name="MatchHeeftAlsGemachtigdeOmschrijving"
                 xpathExpression="lower-case($lh)=lower-case($rh)"
                 >
                 <Param name="lh" xpathExpression="$RolMapping/rolMapping/heeftAlsGemachtigde" type="STRING">
@@ -131,7 +131,7 @@
                 <Param name="rh" xpathExpression="/root/omschrijving" type="STRING"/>
                 <Forward name="then" path="StoreHeeftAlsGemachtigdeKeys"/>
                 <Forward name="else" path="MatchHeeftAlsOverigBetrokkeneOmschrijving"/>
-            </XmlIfPipe>
+            </IfPipe>
 
             <PutInSessionPipe name="StoreHeeftAlsGemachtigdeKeys">
 				<Param name="RolNaam" value="heeftAlsGemachtigde" type="STRING"/>
@@ -139,7 +139,7 @@
                 <Forward name="success" path="MapZdsRolFromZgwRol"/>
 			</PutInSessionPipe>
 
-            <XmlIfPipe name="MatchHeeftAlsOverigBetrokkeneOmschrijving"
+            <IfPipe name="MatchHeeftAlsOverigBetrokkeneOmschrijving"
                 xpathExpression="lower-case($lh)=lower-case($rh)"
                 >
                 <Param name="lh" xpathExpression="$RolMapping/rolMapping/heeftAlsOverigBetrokkene" type="STRING">
@@ -148,7 +148,7 @@
                 <Param name="rh" xpathExpression="/root/omschrijving" type="STRING"/>
                 <Forward name="then" path="StoreHeeftAlsOverigBetrokkeneKeys"/>
                 <Forward name="else" path="EXCEPTION"/>
-            </XmlIfPipe>
+            </IfPipe>
 
             <PutInSessionPipe name="StoreHeeftAlsOverigBetrokkeneKeys">
 				<Param name="RolNaam" value="heeftAlsOverigBetrokkene" type="STRING"/>
