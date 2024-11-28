@@ -13,8 +13,8 @@
                 <Exit name="EXCEPTION" state="ERROR"/>
             </Exits>
 
-            <!-- <JsonPipe name="getZaakJsonToXml" getInputFromSessionKey="originalMessage"
-                storeResultInSessionKey="FirstInput" /> -->
+            <JsonPipe name="getZaakJsonToXml" getInputFromSessionKey="originalMessage"
+                storeResultInSessionKey="FirstInput" />
 
             <SenderPipe
                 name="CallGetZgwZaak"
