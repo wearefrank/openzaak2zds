@@ -1,5 +1,15 @@
 [![conventional commits](https://img.shields.io/badge/conventional%20commits-1.0.0-yellow.svg)](https://conventionalcommits.org) [![semantic versioning](https://img.shields.io/badge/semantic%20versioning-2.0.0-green.svg)](https://semver.org)
 
+## [1.0.3](https://github.com/wearefrank/openzaak2zds/compare/v1.0.2...v1.0.3) (2024-11-28)
+
+### 🐛 Bug Fixes
+
+* add APIKEY ([7d54a51](https://github.com/wearefrank/openzaak2zds/commit/7d54a51fa0302e7af125c11863f483d131badd34))
+
+### 🧑‍💻 Code Refactoring
+
+* XmlIfPipe to IfPipe ([cded40b](https://github.com/wearefrank/openzaak2zds/commit/cded40bfed2bd2ee3b04d628615b0d77d6f955b8))
+
 ## [1.0.2](https://github.com/wearefrank/openzaak2zds/compare/v1.0.1...v1.0.2) (2024-11-27)
 
 ### ⏩ Reverts
