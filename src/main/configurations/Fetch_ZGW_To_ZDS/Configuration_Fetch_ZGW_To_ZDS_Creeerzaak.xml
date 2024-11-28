@@ -52,10 +52,11 @@
                 <HttpSender
                     name="SendZaakDetailsToEndpoint"
                     methodType="POST"
-                    headersParams="Authorization,Accept-Crs"
+                    headersParams="Authorization,Accept-Crs,suiteapikey"
                     timeout="${openzaak2zds.zgw.zaken-api.timeout}"
                 />
                 <Param name="url" value="${endpointForCreeerZaak}" />
+                <Param name="suiteapikey" value="${suiteapikey}" />
                 <Param name="Accept-Crs" value="EPSG:4326" />
                 <Param name="Authorization" sessionKey="Authorization" />
                 <Forward name="success" path="EXIT" />
