@@ -1,5 +1,11 @@
 [![conventional commits](https://img.shields.io/badge/conventional%20commits-1.0.0-yellow.svg)](https://conventionalcommits.org) [![semantic versioning](https://img.shields.io/badge/semantic%20versioning-2.0.0-green.svg)](https://semver.org)
 
+## [1.0.5](https://github.com/wearefrank/openzaak2zds/compare/v1.0.4...v1.0.5) (2024-11-28)
+
+### 🐛 Bug Fixes
+
+* APIKEY ([f2425c7](https://github.com/wearefrank/openzaak2zds/commit/f2425c7447d042626be95962a7249f7ba0c877c7))
+
 ## [1.0.4](https://github.com/wearefrank/openzaak2zds/compare/v1.0.3...v1.0.4) (2024-11-28)
 
 ### 🐛 Bug Fixes
