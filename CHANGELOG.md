@@ -1,5 +1,12 @@
 [![conventional commits](https://img.shields.io/badge/conventional%20commits-1.0.0-yellow.svg)](https://conventionalcommits.org) [![semantic versioning](https://img.shields.io/badge/semantic%20versioning-2.0.0-green.svg)](https://semver.org)
 
+## [1.0.7](https://github.com/wearefrank/openzaak2zds/compare/v1.0.6...v1.0.7) (2024-11-29)
+
+### 🐛 Bug Fixes
+
+* remove/add adapter ([53b3fb2](https://github.com/wearefrank/openzaak2zds/commit/53b3fb2b4e5e7750d2e3461af1b4895b4d662c52))
+* wrap the message ([7514246](https://github.com/wearefrank/openzaak2zds/commit/7514246b78afe9d1b449d9ab1836a7e2a2df3db0))
+
 ## [1.0.6](https://github.com/wearefrank/openzaak2zds/compare/v1.0.5...v1.0.6) (2024-11-29)
 
 ### 🐛 Bug Fixes
