@@ -10,17 +10,18 @@
   <xsl:param name="storeStatusResponse" />
   <xsl:param name="storeResultaat" />
   <xsl:param name="uuid" />
+  <xsl:param name="zkt_code" />
   <xsl:template match="/">
     <zakLk01>
       <stuurgegevens>
         <StUF:berichtcode>Lk01</StUF:berichtcode>
         <StUF:zender>
-          <StUF:organisatie>Test</StUF:organisatie>
-          <StUF:applicatie>Test</StUF:applicatie>
+          <StUF:organisatie>Roxit</StUF:organisatie>
+          <StUF:applicatie>INPROCES</StUF:applicatie>
         </StUF:zender>
         <StUF:ontvanger>
-          <StUF:organisatie>Test</StUF:organisatie>
-          <StUF:applicatie>Test</StUF:applicatie>
+          <StUF:organisatie>0080</StUF:organisatie>
+          <StUF:applicatie>GWS4all</StUF:applicatie>
         </StUF:ontvanger>
         <StUF:referentienummer><xsl:value-of select="$uuid" /></StUF:referentienummer>
         <StUF:tijdstipBericht>
@@ -116,7 +117,7 @@
         <heeft StUF:entiteittype="ZAKSTT" StUF:verwerkingssoort="T">
           <gerelateerde StUF:entiteittype="STT" StUF:verwerkingssoort="I">
             <zkt.code>
-              <xsl:value-of select="$storeZaakTypeResponse/root/identificatie" />
+              <xsl:value-of select="$zkt_code" />
             </zkt.code>
             <zkt.omschrijving>
               <xsl:value-of select="$storeZaakTypeResponse/root/omschrijving" />
