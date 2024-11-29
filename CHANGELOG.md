@@ -1,5 +1,11 @@
 [![conventional commits](https://img.shields.io/badge/conventional%20commits-1.0.0-yellow.svg)](https://conventionalcommits.org) [![semantic versioning](https://img.shields.io/badge/semantic%20versioning-2.0.0-green.svg)](https://semver.org)
 
+## [1.0.6](https://github.com/wearefrank/openzaak2zds/compare/v1.0.5...v1.0.6) (2024-11-29)
+
+### 🐛 Bug Fixes
+
+* trigger a new release ([ca94c70](https://github.com/wearefrank/openzaak2zds/commit/ca94c70675c6ab8fd723bcedbda3315cb789839e))
+
 ## [1.0.5](https://github.com/wearefrank/openzaak2zds/compare/v1.0.4...v1.0.5) (2024-11-28)
 
 ### 🐛 Bug Fixes
