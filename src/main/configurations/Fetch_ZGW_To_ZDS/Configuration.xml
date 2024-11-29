@@ -24,9 +24,11 @@
 	<!ENTITY GenerateAuthorizationHeaderForCatalogiApi     				SYSTEM "Configuration_GenerateAuthorizationHeaderForCatalogiApi.xml">
 	<!ENTITY GenerateAuthorizationHeaderForZakenApi         			SYSTEM "Configuration_GenerateAuthorizationHeaderForZakenApi.xml">
 	<!ENTITY GenerateAuthorizationHeaderForNotificatiesApi         		SYSTEM "Configuration_GenerateAuthorizationHeaderForNotificatiesApi.xml">
-]>
+	<!ENTITY GetZaakDetails         									SYSTEM "Configuration_GetZaakDetails.xml">
+	]>
 
 <Configuration name="Fetch_ZGW_To_ZDS">
+	&GetZaakDetails;
 	&ApplyValueOverridesZgwToZds;
 	&GeefZaakdetails_Lv01;
 	&GetRollenByBsn;

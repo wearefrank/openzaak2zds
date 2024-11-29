@@ -1,0 +1,170 @@
+<Module xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../FrankConfig.xsd">
+    <Adapter name="GetZaakDetails"
+        active="${GetZaakDetails.Active}"
+        description="">
+
+        <Receiver name="GetZaakDetails">
+            <JavaListener name="GetZaakDetails" returnedSessionKeys="Error" />
+        </Receiver>
+
+        <Pipeline>  
+            <Exits>
+                <Exit name="EXIT" state="SUCCESS"/>
+                <Exit name="EXCEPTION" state="ERROR"/>
+            </Exits>
+
+			<SenderPipe name="GetAuthorizationHeaderForZakenApi"
+                getInputFromFixedValue="&lt;dummy/&gt;">
+                <IbisLocalSender
+                    name="GetAuthorizationHeaderForZakenApiSender"
+                    javaListener="GenerateAuthorizationHeaderForZakenApi"
+                    returnedSessionKeys="Error,Authorization">
+                </IbisLocalSender>
+                <Forward name="success" path="toXml" />
+                <Forward name="exception" path="EXCEPTION" />
+            </SenderPipe>
+
+            <JsonPipe name="toXml" getInputFromSessionKey="originalMessage" direction="JSON2XML" storeResultInSessionKey="FirstInput"/>
+
+            <!-- retrieve the case -->
+            <SenderPipe name="Call Open Zaak to get the zaak">
+                <HttpSender
+                    name="getZaak"
+                    headersParams="Accept-Crs,Authorization">
+                    <Param name="Authorization" sessionKey="Authorization" />
+                    <Param name="url" xpathExpression="/root/hoofdObject" />
+                    <Param name="Accept-Crs" value="EPSG:4326" />
+                </HttpSender>
+            </SenderPipe>
+
+            <JsonPipe name="getZaakJsonToXml" storeResultInSessionKey="getZaakXml" />
+
+             <!-- retrieve casetype -->
+             <SenderPipe name="Call Open Zaak to get the zaakType">
+                <HttpSender name="zaakTypeResponse"
+                    headersParams="Accept-Crs,Authorization">
+                    <Param name="Authorization" sessionKey="Authorization" />
+                    <Param name="url" xpathExpression="/root/zaaktype" />
+                    <Param name="Accept-Crs" value="EPSG:4326" />
+                </HttpSender>
+            </SenderPipe>
+
+            <JsonPipe name="zaakTypeResponseJsonToXml"
+                storeResultInSessionKey="storeZaakTypeResponse" />
+
+                <SenderPipe name="Call Open Zaak to get resultaat in zaak"
+                getInputFromSessionKey="getZaakXml">
+                <HttpSender name="resultaat"
+                    headersParams="Accept-Crs,Authorization">
+                    <Param name="Authorization" sessionKey="Authorization" />
+                    <Param name="url" xpathExpression="/root/resultaat" />
+                    <Param name="Accept-Crs" value="EPSG:4326" />
+                </HttpSender>
+            </SenderPipe>
+            <JsonPipe name="resultaatJsonToXml" storeResultInSessionKey="storeResultaat" />
+
+            <!-- retrieve the status -->
+            <SenderPipe name="Call Open Zaak to get status in zaak"
+                getInputFromSessionKey="FirstInput">
+                <HttpSender name="statusResponse"
+                    headersParams="Accept-Crs,Authorization">
+                    <Param name="Authorization" sessionKey="Authorization" />
+                    <Param name="url" xpathExpression="/root/resourceUrl" />
+                    <Param name="Accept-Crs" value="EPSG:4326" />
+                </HttpSender>
+            </SenderPipe>
+
+            <JsonPipe name="statusResponseJsonToXml" storeResultInSessionKey="storeStatusResponse" />
+
+            <SenderPipe name="Call Open Zaak to get new status in zaak" getInputFromSessionKey="FirstInput">
+                <HttpSender name="statusResponse"
+                    headersParams="Accept-Crs,Authorization">
+                    <Param name="Authorization" sessionKey="Authorization" />
+                    <Param name="url" xpathExpression="/root/resourceUrl" />
+                    <Param name="Accept-Crs" value="EPSG:4326" />
+                </HttpSender>
+            </SenderPipe>
+
+            <JsonPipe name="newStatusResponseJsonToXml"
+                storeResultInSessionKey="storeStatusResponse" />
+
+            <SenderPipe name="Call Open Zaak to get rollen" getInputFromSessionKey="getZaakXml">
+                <HttpSender
+					name="rollenJson"
+					methodType="GET"
+					headersParams="Authorization,Accept-Crs"
+                    timeout="${openzaak2zds.zgw.zaken-api.timeout}"
+				    >
+                    <Param name="url" value="${openzaak2zds.zgw.zaken-api.root-url}rollen" />
+                    <Param name="Authorization" sessionKey="Authorization" />
+                    <Param name="Accept-Crs" value="EPSG:4326" />
+                    <Param name="zaak" xpathExpression="root/url" />
+                </HttpSender>
+            </SenderPipe>
+
+            <JsonPipe name="rollenJsonresultJsonToXml" />
+
+            <PutInSessionPipe name="storerollenJsonresult">
+                <Param name="storeRollenJson" />
+                <Param name="uuid" pattern="{uuid}" />
+            </PutInSessionPipe>
+
+            <XsltPipe name="check Rollen count" styleSheetName="xsl/checkRollen.xsl">
+                <Forward name="success" path="check if rollen count!=1" />
+            </XsltPipe>
+
+            <IfPipe name="check if rollen count!=1" xpathExpression="string-length(count) &gt; 0">
+                <Forward name="then" path="check Inpbsn" />
+                <Forward name="else" path="storeRejectionRollen" />
+            </IfPipe>
+
+            
+
+            <XsltPipe name="check Inpbsn" getInputFromSessionKey="storeRollenJson"
+                styleSheetName="xsl/checkInpbsn.xsl">
+                <Forward name="success" path="check if Inpbsn is None" />
+            </XsltPipe>
+
+            <IfPipe name="check if Inpbsn is None" xpathExpression="string-length(inpBsn) &gt; 0">
+                <Forward name="then" path="Create result file" />
+                <Forward name="else" path="storeRejectionInpbsn" />
+            </IfPipe>
+
+            <PutInSessionPipe name="storeRejectionInpbsn" sessionKey="rejectionReason"
+                value="BSN incorrect" />
+
+            <PutInSessionPipe name="storeRejectionRollen" sessionKey="rejectionReason"
+                value="Rollen incorrect" />
+
+            <XsltPipe name="Create result file" getInputFromSessionKey="getZaakXml"
+                omitXmlDeclaration="true"
+                styleSheetName="xsl/result.xsl">
+                <Param name="storeResultaat" sessionKey="storeResultaat" type="DOMDOC" />
+                <Param name="storeRollenJson" sessionKey="storeRollenJson" type="DOMDOC" />
+                <Param name="storeZaakTypeResponse" sessionKey="storeZaakTypeResponse" type="DOMDOC" />
+                <Param name="storeStatusResponse" sessionKey="storeStatusResponse" type="DOMDOC" />
+                <Param name="uuid" sessionKey="uuid" />
+            </XsltPipe>
+
+            <!--send
+            to an endpoint as 'creerzaak' xml-->
+            <SenderPipe name="SendZaakDetailsToEndpointSender">
+                <HttpSender
+                    name="SendZaakDetailsToEndpoint"
+                    methodType="POST"
+                    headersParams="Authorization,Accept-Crs,suiteapikey,SOAPaction,Content-Type"
+                    timeout="${openzaak2zds.zgw.zaken-api.timeout}"
+                />
+                <Param name="url" value="${endpointForCreeerZaak}" />
+                <Param name="suiteapikey" pattern="{password}" authAlias="${suiteapikey}"  hidden="true" />
+                <Param name="Accept-Crs" value="EPSG:4326" />
+                <Param name="Content-Type" value="text/xml" />
+                <Param name="SOAPaction" value="${SOAPaction}" />
+                <Param name="Authorization" sessionKey="Authorization" />
+                <Forward name="success" path="EXIT" />
+                <Forward name="exception" path="EXCEPTION" />
+            </SenderPipe>
+
+        </Pipeline>
+    </Adapter>
+</Module>
