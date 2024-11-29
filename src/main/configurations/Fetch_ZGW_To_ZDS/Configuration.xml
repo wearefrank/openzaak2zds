@@ -21,14 +21,13 @@
 	<!ENTITY ResolveProfileValues 										SYSTEM "Configuration_ResolveProfileValues.xml">
 	<!ENTITY GetZgwStatusTypeByUrl 										SYSTEM "Configuration_GetZgwStatusTypeByUrl.xml">
 	<!ENTITY Fetch_ZGW_To_ZDS_Creeerzaak 								SYSTEM "Configuration_Fetch_ZGW_To_ZDS_Creeerzaak.xml">
+	<!ENTITY Fetch_ZGW_To_ZDS_Creeerzaak1 								SYSTEM "Configuration_Fetch_ZGW_To_ZDS_Creeerzaak1.xml">
 	<!ENTITY GenerateAuthorizationHeaderForCatalogiApi     				SYSTEM "Configuration_GenerateAuthorizationHeaderForCatalogiApi.xml">
 	<!ENTITY GenerateAuthorizationHeaderForZakenApi         			SYSTEM "Configuration_GenerateAuthorizationHeaderForZakenApi.xml">
 	<!ENTITY GenerateAuthorizationHeaderForNotificatiesApi         		SYSTEM "Configuration_GenerateAuthorizationHeaderForNotificatiesApi.xml">
-	<!ENTITY GetZaakDetails         									SYSTEM "Configuration_GetZaakDetails.xml">
 	]>
 
 <Configuration name="Fetch_ZGW_To_ZDS">
-	&GetZaakDetails;
 	&ApplyValueOverridesZgwToZds;
 	&GeefZaakdetails_Lv01;
 	&GetRollenByBsn;
@@ -51,6 +50,7 @@
 	&ResolveProfileValues;
 	&GetZgwStatusTypeByUrl;
 	&Fetch_ZGW_To_ZDS_Creeerzaak;
+	&Fetch_ZGW_To_ZDS_Creeerzaak1;
 	&GenerateAuthorizationHeaderForCatalogiApi;
 	&GenerateAuthorizationHeaderForZakenApi;
 	&GenerateAuthorizationHeaderForNotificatiesApi;
