@@ -36,7 +36,7 @@
             </SenderPipe>
             
             <!-- retrieve the case -->
-            <SenderPipe name="Call Open Zaak to get the zaak">
+            <SenderPipe name="Call Open Zaak to get the zaak" getInputFromSessionKey="originalMessage">
                 <HttpSender
                     name="getZaak"
                     headersParams="Accept-Crs,Authorization">
