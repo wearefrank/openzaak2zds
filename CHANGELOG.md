@@ -1,5 +1,11 @@
 [![conventional commits](https://img.shields.io/badge/conventional%20commits-1.0.0-yellow.svg)](https://conventionalcommits.org) [![semantic versioning](https://img.shields.io/badge/semantic%20versioning-2.0.0-green.svg)](https://semver.org)
 
+## [1.0.11](https://github.com/wearefrank/openzaak2zds/compare/v1.0.10...v1.0.11) (2024-12-03)
+
+### 🐛 Bug Fixes
+
+* get the originalMessage as an input ([64f4b07](https://github.com/wearefrank/openzaak2zds/commit/64f4b070f902eb5df766c44e3886ae2b937a6162))
+
 ## [1.0.10](https://github.com/wearefrank/openzaak2zds/compare/v1.0.9...v1.0.10) (2024-12-03)
 
 ### 🐛 Bug Fixes
