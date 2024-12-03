@@ -1,5 +1,11 @@
 [![conventional commits](https://img.shields.io/badge/conventional%20commits-1.0.0-yellow.svg)](https://conventionalcommits.org) [![semantic versioning](https://img.shields.io/badge/semantic%20versioning-2.0.0-green.svg)](https://semver.org)
 
+## [1.0.9](https://github.com/wearefrank/openzaak2zds/compare/v1.0.8...v1.0.9) (2024-12-03)
+
+### 🐛 Bug Fixes
+
+* activate the Zaak_Create ([9a0ce91](https://github.com/wearefrank/openzaak2zds/commit/9a0ce9145b58ce7acee6529bd950774932de20e5))
+
 ## [1.0.8](https://github.com/wearefrank/openzaak2zds/compare/v1.0.7...v1.0.8) (2024-12-03)
 
 ### 🐛 Bug Fixes
