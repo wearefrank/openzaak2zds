@@ -31,13 +31,10 @@
                     javaListener="GenerateAuthorizationHeaderForZakenApi"
                     returnedSessionKeys="Error,Authorization">
                 </IbisLocalSender>
-                <Forward name="success" path="toXml" />
+                <Forward name="success" path="Call Open Zaak to get the zaak" />
                 <Forward name="exception" path="EXCEPTION" />
             </SenderPipe>
-
-            <JsonPipe name="toXml" getInputFromSessionKey="originalMessage" direction="JSON2XML"
-                storeResultInSessionKey="FirstInput" />
-
+            
             <!-- retrieve the case -->
             <SenderPipe name="Call Open Zaak to get the zaak">
                 <HttpSender
@@ -77,7 +74,7 @@
 
             <!-- retrieve the status -->
             <SenderPipe name="Call Open Zaak to get status in zaak"
-                getInputFromSessionKey="FirstInput">
+                getInputFromSessionKey="originalMessage">
                 <HttpSender name="statusResponse"
                     headersParams="Accept-Crs,Authorization">
                     <Param name="Authorization" sessionKey="Authorization" />
@@ -89,7 +86,7 @@
             <JsonPipe name="statusResponseJsonToXml" storeResultInSessionKey="storeStatusResponse" />
 
             <SenderPipe name="Call Open Zaak to get new status in zaak"
-                getInputFromSessionKey="FirstInput">
+                getInputFromSessionKey="originalMessage">
                 <HttpSender name="statusResponse"
                     headersParams="Accept-Crs,Authorization">
                     <Param name="Authorization" sessionKey="Authorization" />
