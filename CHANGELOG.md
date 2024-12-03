@@ -1,5 +1,11 @@
 [![conventional commits](https://img.shields.io/badge/conventional%20commits-1.0.0-yellow.svg)](https://conventionalcommits.org) [![semantic versioning](https://img.shields.io/badge/semantic%20versioning-2.0.0-green.svg)](https://semver.org)
 
+## [1.0.8](https://github.com/wearefrank/openzaak2zds/compare/v1.0.7...v1.0.8) (2024-12-03)
+
+### 🐛 Bug Fixes
+
+* update the Configuration_Notificaties_Create ([5d5bbba](https://github.com/wearefrank/openzaak2zds/commit/5d5bbbaead20160ffbbd72ce06f5eb729cc32c51))
+
 ## [1.0.7](https://github.com/wearefrank/openzaak2zds/compare/v1.0.6...v1.0.7) (2024-11-29)
 
 ### 🐛 Bug Fixes
