@@ -61,10 +61,10 @@
                 xpathExpression="//kanaal = 'test'"
             >
                 <Forward name="then" path="Created" />
-                <Forward name="else" path="GetAuthorizationHeaderForObjectsApi" />
+                <Forward name="else" path="ZaakCreateSender" />
             </IfPipe>
 
-            <SenderPipe
+            <!-- <SenderPipe
                 name="GetAuthorizationHeaderForObjectsApi"
                 getInputFromFixedValue="&lt;dummy/&gt;"
                 preserveInput="true"
@@ -90,15 +90,15 @@
                     <Param name="url" xpathExpression="//resourceUrl" />
                     <Param name="Accept-Crs" value="EPSG:4326" />
                 </HttpSender>
-                <Forward name="success" path="ObjectCreateSender" />
+                <Forward name="success" path="ZaakCreateSender" />
                 <Forward name="exception" path="InternalServerError" />
-            </SenderPipe>
+            </SenderPipe> -->
 
             <SenderPipe
-                name="ObjectCreateSender"
+                name="ZaakCreateSender"
             >
                 <IbisLocalSender
-                    name="ObjectCreateSenderLocalSender"
+                    name="ZaakCreateSenderLocalSender"
                     javaListener="Zaak_Create"
                 >
                 </IbisLocalSender>
