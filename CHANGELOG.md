@@ -1,5 +1,11 @@
 [![conventional commits](https://img.shields.io/badge/conventional%20commits-1.0.0-yellow.svg)](https://conventionalcommits.org) [![semantic versioning](https://img.shields.io/badge/semantic%20versioning-2.0.0-green.svg)](https://semver.org)
 
+## [1.0.10](https://github.com/wearefrank/openzaak2zds/compare/v1.0.9...v1.0.10) (2024-12-03)
+
+### 🐛 Bug Fixes
+
+* remove the pipe toXml ([2319390](https://github.com/wearefrank/openzaak2zds/commit/231939046929a45829a576ac0d806fc637f26226))
+
 ## [1.0.9](https://github.com/wearefrank/openzaak2zds/compare/v1.0.8...v1.0.9) (2024-12-03)
 
 ### 🐛 Bug Fixes
