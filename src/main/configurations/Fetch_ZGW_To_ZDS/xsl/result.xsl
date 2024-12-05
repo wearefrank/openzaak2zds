@@ -47,12 +47,14 @@
         <toelichting>
           <xsl:value-of select="root/toelichting" />
         </toelichting>
-        <xsl:if test="exists($storeResultaat/root/toelichting)">
-          <resultaat>
-            <omschrijving>
-              <xsl:value-of select="$storeResultaat/root/toelichting" />
-            </omschrijving>
-          </resultaat>
+        <xsl:if test="$storeResultaat='null'">
+          <xsl:if test="exists($storeResultaat/root/toelichting)">
+            <resultaat>
+              <omschrijving>
+                <xsl:value-of select="$storeResultaat/root/toelichting" />
+              </omschrijving>
+            </resultaat>
+          </xsl:if>
         </xsl:if>
         <startdatum>
           <xsl:value-of select="format-date(root/startdatum,'[Y0001][M01][D01]')" />
