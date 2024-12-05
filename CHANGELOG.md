@@ -1,5 +1,11 @@
 [![conventional commits](https://img.shields.io/badge/conventional%20commits-1.0.0-yellow.svg)](https://conventionalcommits.org) [![semantic versioning](https://img.shields.io/badge/semantic%20versioning-2.0.0-green.svg)](https://semver.org)
 
+## [1.0.14](https://github.com/wearefrank/openzaak2zds/compare/v1.0.13...v1.0.14) (2024-12-05)
+
+### 🐛 Bug Fixes
+
+* update the url ([9c71776](https://github.com/wearefrank/openzaak2zds/commit/9c71776b0dd2426bc237c19d129025d0be98d58c))
+
 ## [1.0.13](https://github.com/wearefrank/openzaak2zds/compare/v1.0.12...v1.0.13) (2024-12-05)
 
 ### 🐛 Bug Fixes
