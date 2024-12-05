@@ -8,7 +8,7 @@
   <xsl:param name="storeRollenJson" />
   <xsl:param name="storeZaakTypeResponse" />
   <xsl:param name="storeStatusResponse" />
-  <xsl:param name="storeResultaat" />
+  <xsl:param name="storeResultaat" as="node()?"/>
   <xsl:param name="uuid" />
   <xsl:param name="zkt_code" />
   <xsl:template match="/">
@@ -47,14 +47,12 @@
         <toelichting>
           <xsl:value-of select="root/toelichting" />
         </toelichting>
-        <xsl:if test="$storeResultaat='null'">
-          <xsl:if test="exists($storeResultaat/root/toelichting)">
-            <resultaat>
-              <omschrijving>
-                <xsl:value-of select="$storeResultaat/root/toelichting" />
-              </omschrijving>
-            </resultaat>
-          </xsl:if>
+         <xsl:if test="exists($storeResultaat/root/toelichting)">
+          <resultaat>
+            <omschrijving>
+              <xsl:value-of select="$storeResultaat/root/toelichting" />
+            </omschrijving>
+          </resultaat>
         </xsl:if>
         <startdatum>
           <xsl:value-of select="format-date(root/startdatum,'[Y0001][M01][D01]')" />
@@ -126,10 +124,33 @@
             </zkt.omschrijving>
             <volgnummer xsi:nil="true" StUF:noValue="waardeOnbekend" />
             <code xsi:nil="true" StUF:noValue="waardeOnbekend" />
-            <omschrijving>
-              <xsl:value-of
-                select="$storeStatusResponse/root/statustoelichting" />
-            </omschrijving>    
+            <xsl:choose>
+              <xsl:when
+                test="exists($storeResultaat/root/toelichting) and $storeResultaat/root/toelichting!=''">
+                <xsl:choose>
+                  <xsl:when test="string-length($storeStatusResponse/root/statustype) &gt; 0">
+                    <omschrijving>
+                      <xsl:value-of
+                        select="concat($storeStatusResponse/root/statustype,' (', $storeResultaat/root/toelichting,')')" />
+                    </omschrijving>
+                  </xsl:when>
+                  <xsl:otherwise>
+                    <omschrijving>
+                      <xsl:value-of
+                        select="$storeResultaat/root/toelichting" />
+                    </omschrijving>
+                  </xsl:otherwise>
+                </xsl:choose>
+              </xsl:when>
+              <xsl:otherwise>
+                <xsl:if test="exists($storeStatusResponse/root/statustype)">
+                  <omschrijving>
+                    <xsl:value-of
+                      select="$storeStatusResponse/root/statustype" />
+                  </omschrijving>
+                </xsl:if>
+              </xsl:otherwise>
+            </xsl:choose>
             <ingangsdatumObject xsi:nil="true" StUF:noValue="waardeOnbekend" />
           </gerelateerde>
           <datumStatusGezet>

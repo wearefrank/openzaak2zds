@@ -35,6 +35,16 @@
                 <Forward name="exception" path="EXCEPTION" />
             </SenderPipe>
 
+            <IfPipe name="checkResource" xpathExpression="/root/kanaal = 'zaken'">
+                <Forward name="then" path="Call Open Zaak to get the zaak" />
+                <Forward name="else" path="checkResource2" />
+            </IfPipe>
+
+            <IfPipe name="checkResource2" xpathExpression="/root/kanaal = 'documenten'">
+                <Forward name="then" path="Call Open Zaak to get the zaak" />
+                <Forward name="else" path="storeRejectionResource" />
+            </IfPipe>
+
             <!-- retrieve the case -->
             <SenderPipe name="Call Open Zaak to get the zaak"
                 getInputFromSessionKey="originalMessage">
@@ -86,29 +96,16 @@
 
             <!-- retrieve the status -->
             <SenderPipe name="Call Open Zaak to get status in zaak"
-                getInputFromSessionKey="originalMessage">
+                getInputFromSessionKey="getZaakXml">
                 <HttpSender name="statusResponse"
                     headersParams="Accept-Crs,Authorization">
                     <Param name="Authorization" sessionKey="Authorization" />
-                    <Param name="url" xpathExpression="/root/resourceUrl" />
+                    <Param name="url" xpathExpression="/root/status" />
                     <Param name="Accept-Crs" value="EPSG:4326" />
                 </HttpSender>
             </SenderPipe>
 
             <JsonPipe name="statusResponseJsonToXml" storeResultInSessionKey="storeStatusResponse" />
-
-            <SenderPipe name="Call Open Zaak to get new status in zaak"
-                getInputFromSessionKey="originalMessage">
-                <HttpSender name="statusResponse"
-                    headersParams="Accept-Crs,Authorization">
-                    <Param name="Authorization" sessionKey="Authorization" />
-                    <Param name="url" xpathExpression="/root/resourceUrl" />
-                    <Param name="Accept-Crs" value="EPSG:4326" />
-                </HttpSender>
-            </SenderPipe>
-
-            <JsonPipe name="newStatusResponseJsonToXml"
-                storeResultInSessionKey="storeStatusResponse" />
 
             <SenderPipe name="Call Open Zaak to get rollen" getInputFromSessionKey="getZaakXml">
                 <HttpSender
@@ -124,14 +121,9 @@
                 </HttpSender>
             </SenderPipe>
 
-            <JsonPipe name="rollenJsonresultJsonToXml" />
+            <JsonPipe name="rollenJsonresultJsonToXml" storeResultInSessionKey="storeRollenJson"/>
 
-            <PutInSessionPipe name="storerollenJsonresult">
-                <Param name="storeRollenJson" />
-                <Param name="uuid" pattern="{uuid}" />
-            </PutInSessionPipe>
-
-            <XsltPipe name="check Rollen count" styleSheetName="xsl/checkRollen.xsl">
+            <!-- <XsltPipe name="check Rollen count" styleSheetName="xsl/checkRollen.xsl">
                 <Forward name="success" path="check if rollen count!=1" />
             </XsltPipe>
 
@@ -155,7 +147,7 @@
                 value="BSN incorrect" />
 
             <PutInSessionPipe name="storeRejectionRollen" sessionKey="rejectionReason"
-                value="Rollen incorrect" />
+                value="Rollen incorrect" /> -->
 
             <XsltPipe name="Create result file" getInputFromSessionKey="getZaakXml"
                 omitXmlDeclaration="true"
@@ -164,7 +156,7 @@
                 <Param name="storeRollenJson" sessionKey="storeRollenJson" type="DOMDOC" />
                 <Param name="storeZaakTypeResponse" sessionKey="storeZaakTypeResponse" type="DOMDOC" />
                 <Param name="storeStatusResponse" sessionKey="storeStatusResponse" type="DOMDOC" />
-                <Param name="uuid" sessionKey="uuid" />
+                <Param name="uuid" pattern="{uuid}" />
                 <Param name="zkt_code" sessionKey="zkt_code" defaultValue="${zkt_code}" />
             </XsltPipe>
 
