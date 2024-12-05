@@ -1,5 +1,11 @@
 [![conventional commits](https://img.shields.io/badge/conventional%20commits-1.0.0-yellow.svg)](https://conventionalcommits.org) [![semantic versioning](https://img.shields.io/badge/semantic%20versioning-2.0.0-green.svg)](https://semver.org)
 
+## [1.0.12](https://github.com/wearefrank/openzaak2zds/compare/v1.0.11...v1.0.12) (2024-12-05)
+
+### 🐛 Bug Fixes
+
+* add check for resultaat ([5ccbb90](https://github.com/wearefrank/openzaak2zds/commit/5ccbb90e4b42d0edaf57c572fa4becf44401025d))
+
 ## [1.0.11](https://github.com/wearefrank/openzaak2zds/compare/v1.0.10...v1.0.11) (2024-12-03)
 
 ### 🐛 Bug Fixes
