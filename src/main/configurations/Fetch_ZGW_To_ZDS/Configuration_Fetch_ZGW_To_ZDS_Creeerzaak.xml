@@ -34,9 +34,10 @@
                 <Forward name="success" path="Call Open Zaak to get the zaak" />
                 <Forward name="exception" path="EXCEPTION" />
             </SenderPipe>
-            
+
             <!-- retrieve the case -->
-            <SenderPipe name="Call Open Zaak to get the zaak" getInputFromSessionKey="originalMessage">
+            <SenderPipe name="Call Open Zaak to get the zaak"
+                getInputFromSessionKey="originalMessage">
                 <HttpSender
                     name="getZaak"
                     headersParams="Accept-Crs,Authorization">
@@ -60,6 +61,17 @@
 
             <JsonPipe name="zaakTypeResponseJsonToXml"
                 storeResultInSessionKey="storeZaakTypeResponse" />
+
+            <XsltPipe name="Check resultaat in zaak" getInputFromSessionKey="getZaakXml"
+                styleSheetName="xsl/checkResultaat.xsl">
+                <Forward name="success" path="Check if resultaat exists" />
+            </XsltPipe>
+
+            <IfPipe name="Check if resultaat exists"
+                xpathExpression="string-length(resultaat) &gt; 0">
+                <Forward name="then" path="Call Open Zaak to get resultaat in zaak" />
+                <Forward name="else" path="Call Open Zaak to get status in zaak" />
+            </IfPipe>
 
             <SenderPipe name="Call Open Zaak to get resultaat in zaak"
                 getInputFromSessionKey="getZaakXml">
