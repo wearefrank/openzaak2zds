@@ -1,5 +1,11 @@
 [![conventional commits](https://img.shields.io/badge/conventional%20commits-1.0.0-yellow.svg)](https://conventionalcommits.org) [![semantic versioning](https://img.shields.io/badge/semantic%20versioning-2.0.0-green.svg)](https://semver.org)
 
+## [1.0.13](https://github.com/wearefrank/openzaak2zds/compare/v1.0.12...v1.0.13) (2024-12-05)
+
+### 🐛 Bug Fixes
+
+* add a check to result.xsl ([34ca9b9](https://github.com/wearefrank/openzaak2zds/commit/34ca9b9547b3b26daffb0907d5448c958b8eff41))
+
 ## [1.0.12](https://github.com/wearefrank/openzaak2zds/compare/v1.0.11...v1.0.12) (2024-12-05)
 
 ### 🐛 Bug Fixes
