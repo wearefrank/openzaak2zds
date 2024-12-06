@@ -78,7 +78,7 @@
               <BG:inp.bsn>
                 <xsl:value-of select="$storeRollenJson/root/results/betrokkeneIdentificatie/inpBsn" />
               </BG:inp.bsn>
-              <BG:authentiek StUF:metagegeven="true">J</BG:authentiek>
+              <!-- <BG:authentiek StUF:metagegeven="true">J</BG:authentiek>
               <BG:geslachtsnaam>
                 <xsl:value-of
                   select="$storeRollenJson/root/results/betrokkeneIdentificatie/geslachtsnaam" />
@@ -104,7 +104,7 @@
                   <xsl:value-of
                     select="format-date($storeRollenJson/root/results/betrokkeneIdentificatie/geboortedatum,'[Y0001][M01][D01]')" />
                 </BG:geboortedatum>
-              </xsl:if>
+              </xsl:if> -->
             </natuurlijkPersoon>
           </gerelateerde>
           <code xsi:nil="true" StUF:noValue="geenWaarde" />
@@ -128,7 +128,7 @@
               <xsl:value-of select="$storeZaakTypeResponse/root/omschrijving" />
             </zkt.omschrijving>
             <volgnummer xsi:nil="true" StUF:noValue="waardeOnbekend" />
-            <code xsi:nil="true" StUF:noValue="waardeOnbekend" />
+            <!-- <code xsi:nil="true" StUF:noValue="waardeOnbekend" />
             <xsl:choose>
               <xsl:when
                 test="exists($storeResultaat/root/toelichting) and $storeResultaat/root/toelichting!=''">
@@ -155,7 +155,7 @@
                   </omschrijving>
                 </xsl:if>
               </xsl:otherwise>
-            </xsl:choose>
+            </xsl:choose> -->
             <ingangsdatumObject xsi:nil="true" StUF:noValue="waardeOnbekend" />
           </gerelateerde>
           <xsl:if test="string-length($storeStatusResponse/root/datumStatusGezet) &gt; 0">
