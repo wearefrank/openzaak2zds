@@ -1,5 +1,11 @@
 [![conventional commits](https://img.shields.io/badge/conventional%20commits-1.0.0-yellow.svg)](https://conventionalcommits.org) [![semantic versioning](https://img.shields.io/badge/semantic%20versioning-2.0.0-green.svg)](https://semver.org)
 
+## [1.0.19](https://github.com/wearefrank/openzaak2zds/compare/v1.0.18...v1.0.19) (2024-12-06)
+
+### 🐛 Bug Fixes
+
+* missing ' ([77e6c74](https://github.com/wearefrank/openzaak2zds/commit/77e6c74aaa662dcc154a6a7c60ae7432ecca9a08))
+
 ## [1.0.18](https://github.com/wearefrank/openzaak2zds/compare/v1.0.17...v1.0.18) (2024-12-06)
 
 ### 🐛 Bug Fixes
