@@ -1,5 +1,11 @@
 [![conventional commits](https://img.shields.io/badge/conventional%20commits-1.0.0-yellow.svg)](https://conventionalcommits.org) [![semantic versioning](https://img.shields.io/badge/semantic%20versioning-2.0.0-green.svg)](https://semver.org)
 
+## [1.0.21](https://github.com/wearefrank/openzaak2zds/compare/v1.0.20...v1.0.21) (2024-12-06)
+
+### 🐛 Bug Fixes
+
+* condition when actie = create & resource = zaak ([3a88561](https://github.com/wearefrank/openzaak2zds/commit/3a8856151917541254aae455b8da3bb31a1b5c55))
+
 ## [1.0.20](https://github.com/wearefrank/openzaak2zds/compare/v1.0.19...v1.0.20) (2024-12-06)
 
 ### 🐛 Bug Fixes
