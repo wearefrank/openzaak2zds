@@ -35,16 +35,6 @@
                 <Forward name="exception" path="EXCEPTION" />
             </SenderPipe>
 
-            <IfPipe name="checkResource" xpathExpression="boolean(/root/actie= 'create') and boolean(/root/resource = 'zaak')">
-                <Forward name="then" path="Call Open Zaak to get the zaak" />
-                <Forward name="else" path="checkResource2" />
-            </IfPipe>
-
-            <IfPipe name="checkResource2" xpathExpression="boolean(/root/kanaal = 'documenten') and boolean(/root/resource = 'enkelvoudiginformatieobject')">
-                <Forward name="then" path="Call Open Zaak to get the zaak" />
-                <Forward name="else" path="EXIT" />
-            </IfPipe>
-
             <!-- retrieve the case -->
             <SenderPipe name="Call Open Zaak to get the zaak"
                 getInputFromSessionKey="originalMessage">

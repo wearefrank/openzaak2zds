@@ -61,7 +61,17 @@
                 xpathExpression="//kanaal = 'test'"
             >
                 <Forward name="then" path="Created" />
-                <Forward name="else" path="ZaakCreateSender" />
+                <Forward name="else" path="checkResource" />
+            </IfPipe>
+
+            <IfPipe name="checkResource" xpathExpression="boolean(/root/actie= 'create') and boolean(/root/resource = 'zaak')">
+                <Forward name="then" path="ZaakCreateSender" />
+                <Forward name="else" path="checkResource2" />
+            </IfPipe>
+
+            <IfPipe name="checkResource2" xpathExpression="boolean(/root/kanaal = 'documenten') and boolean(/root/resource = 'enkelvoudiginformatieobject')">
+                <Forward name="then" path="ZaakCreateSender" />
+                <Forward name="else" path="EXIT" />
             </IfPipe>
 
             <!-- <SenderPipe
