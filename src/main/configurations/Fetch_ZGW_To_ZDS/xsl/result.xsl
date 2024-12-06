@@ -48,16 +48,18 @@
         <toelichting>
           <xsl:value-of select="root/toelichting" />
         </toelichting>
-         <xsl:if test="exists($storeResultaat/root/toelichting)">
+        <xsl:if test="exists($storeResultaat/root/toelichting)">
           <resultaat>
             <omschrijving>
               <xsl:value-of select="$storeResultaat/root/toelichting" />
             </omschrijving>
           </resultaat>
         </xsl:if>
-        <startdatum>
-          <xsl:value-of select="format-date(root/startdatum,'[Y0001][M01][D01]')" />
-        </startdatum>
+        <xsl:if test="string-length(root/startdatum) &gt; 0">
+          <startdatum>
+            <xsl:value-of select="format-date(root/startdatum,'[Y0001][M01][D01]')" />
+          </startdatum>
+        </xsl:if>
         <xsl:if test="string-length(root/einddatum) &gt; 0">
           <einddatum>
             <xsl:value-of select="format-date(root/einddatum,'[Y0001][M01][D01]')" />
@@ -97,10 +99,12 @@
                 <xsl:value-of
                   select="upper-case($storeRollenJson/root/results/betrokkeneIdentificatie/geslachtsaanduiding)" />
               </BG:geslachtsaanduiding>
-              <BG:geboortedatum>
-                <xsl:value-of
-                  select="format-date($storeRollenJson/root/results/betrokkeneIdentificatie/geboortedatum,'[Y0001][M01][D01]')" />
-              </BG:geboortedatum>
+              <xsl:if test="string-length($storeRollenJson/root/results/betrokkeneIdentificatie/geboortedatum) &gt; 0">
+                <BG:geboortedatum>                
+                  <xsl:value-of
+                    select="format-date($storeRollenJson/root/results/betrokkeneIdentificatie/geboortedatum,'[Y0001][M01][D01]')" />
+                </BG:geboortedatum>
+              </xsl:if>
             </natuurlijkPersoon>
           </gerelateerde>
           <code xsi:nil="true" StUF:noValue="geenWaarde" />
@@ -154,10 +158,12 @@
             </xsl:choose>
             <ingangsdatumObject xsi:nil="true" StUF:noValue="waardeOnbekend" />
           </gerelateerde>
-          <datumStatusGezet>
+          <xsl:if test="string-length($storeStatusResponse/root/datumStatusGezet) &gt; 0">
+            <datumStatusGezet>
             <xsl:value-of
               select="substring(replace(replace(replace(replace($storeStatusResponse/root/datumStatusGezet,'T',''),'Z',''),':',''),'-',''), 0, 13)" />
           </datumStatusGezet>
+          </xsl:if>
         </heeft>
       </object>
     </zakLk01>
