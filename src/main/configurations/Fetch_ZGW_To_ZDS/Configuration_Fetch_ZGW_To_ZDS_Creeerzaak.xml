@@ -40,7 +40,7 @@
                 <Forward name="else" path="checkResource2" />
             </IfPipe>
 
-            <IfPipe name="checkResource2" xpathExpression="boolean(/root/kanaal = 'documenten') and boolean(/root/resource = 'enkelvoudiginformatieobject')'">
+            <IfPipe name="checkResource2" xpathExpression="boolean(/root/kanaal = 'documenten') and boolean(/root/resource = 'enkelvoudiginformatieobject')">
                 <Forward name="then" path="Call Open Zaak to get the zaak" />
                 <Forward name="else" path="EXIT" />
             </IfPipe>
