@@ -35,14 +35,14 @@
                 <Forward name="exception" path="EXCEPTION" />
             </SenderPipe>
 
-            <IfPipe name="checkResource" xpathExpression="/root/kanaal = 'zaken'">
+            <IfPipe name="checkResource" xpathExpression="boolean(/root/actie= 'create') and boolean(/root/resource = 'zaak')">
                 <Forward name="then" path="Call Open Zaak to get the zaak" />
                 <Forward name="else" path="checkResource2" />
             </IfPipe>
 
-            <IfPipe name="checkResource2" xpathExpression="/root/kanaal = 'documenten'">
+            <IfPipe name="checkResource2" xpathExpression="boolean(/root/kanaal = 'documenten) and boolean(/root/resource = 'enkelvoudiginformatieobject')'">
                 <Forward name="then" path="Call Open Zaak to get the zaak" />
-                <Forward name="else" path="storeRejectionResource" />
+                <Forward name="else" path="EXIT" />
             </IfPipe>
 
             <!-- retrieve the case -->
@@ -123,7 +123,7 @@
 
             <JsonPipe name="rollenJsonresultJsonToXml" storeResultInSessionKey="storeRollenJson"/>
 
-            <!-- <XsltPipe name="check Rollen count" styleSheetName="xsl/checkRollen.xsl">
+            <XsltPipe name="check Rollen count" styleSheetName="xsl/checkRollen.xsl">
                 <Forward name="success" path="check if rollen count!=1" />
             </XsltPipe>
 
@@ -147,7 +147,7 @@
                 value="BSN incorrect" />
 
             <PutInSessionPipe name="storeRejectionRollen" sessionKey="rejectionReason"
-                value="Rollen incorrect" /> -->
+                value="Rollen incorrect" />
 
             <XsltPipe name="Create result file" getInputFromSessionKey="getZaakXml"
                 omitXmlDeclaration="true"
