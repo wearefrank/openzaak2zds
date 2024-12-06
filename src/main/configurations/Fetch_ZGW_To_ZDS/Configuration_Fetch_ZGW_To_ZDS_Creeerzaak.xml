@@ -152,7 +152,7 @@
             <XsltPipe name="Create result file" getInputFromSessionKey="getZaakXml"
                 omitXmlDeclaration="true"
                 styleSheetName="xsl/result.xsl">
-                <Param name="storeResultaat" sessionKey="storeResultaat" type="DOMDOC" />
+                <Param name="storeResultaat" sessionKey="storeResultaat" type="DOMDOC" defaultValue="&lt;Empty/&gt;" />
                 <Param name="storeRollenJson" sessionKey="storeRollenJson" type="DOMDOC" />
                 <Param name="storeZaakTypeResponse" sessionKey="storeZaakTypeResponse" type="DOMDOC" />
                 <Param name="storeStatusResponse" sessionKey="storeStatusResponse" type="DOMDOC" />
