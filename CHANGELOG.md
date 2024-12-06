@@ -1,5 +1,11 @@
 [![conventional commits](https://img.shields.io/badge/conventional%20commits-1.0.0-yellow.svg)](https://conventionalcommits.org) [![semantic versioning](https://img.shields.io/badge/semantic%20versioning-2.0.0-green.svg)](https://semver.org)
 
+## [1.0.16](https://github.com/wearefrank/openzaak2zds/compare/v1.0.15...v1.0.16) (2024-12-06)
+
+### 🐛 Bug Fixes
+
+* add check for dates ([0e59329](https://github.com/wearefrank/openzaak2zds/commit/0e5932912da2e7e6a68e89c37b922cf4f47f5e84))
+
 ## [1.0.15](https://github.com/wearefrank/openzaak2zds/compare/v1.0.14...v1.0.15) (2024-12-06)
 
 ### 🐛 Bug Fixes
