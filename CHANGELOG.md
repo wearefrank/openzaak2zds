@@ -1,5 +1,11 @@
 [![conventional commits](https://img.shields.io/badge/conventional%20commits-1.0.0-yellow.svg)](https://conventionalcommits.org) [![semantic versioning](https://img.shields.io/badge/semantic%20versioning-2.0.0-green.svg)](https://semver.org)
 
+## [1.0.22](https://github.com/wearefrank/openzaak2zds/compare/v1.0.21...v1.0.22) (2024-12-09)
+
+### 🐛 Bug Fixes
+
+* update the exit ([e439539](https://github.com/wearefrank/openzaak2zds/commit/e4395391206f4cc06c02ce461455bd49d5252222))
+
 ## [1.0.21](https://github.com/wearefrank/openzaak2zds/compare/v1.0.20...v1.0.21) (2024-12-06)
 
 ### 🐛 Bug Fixes
