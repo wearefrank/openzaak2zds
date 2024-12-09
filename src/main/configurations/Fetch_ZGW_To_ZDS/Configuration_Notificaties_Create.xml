@@ -19,6 +19,7 @@
         <Pipeline>
             <Exits>
                 <Exit name="Created" state="SUCCESS" code="201" />
+                <Exit name="Accepted" state="SUCCESS" code="202" />
                 <Exit name="Unauthorized" state="ERROR" code="401" />
                 <Exit name="Forbidden" state="ERROR" code="403" />
                 <Exit name="InternalServerError" state="ERROR" code="500" />
@@ -71,7 +72,7 @@
 
             <IfPipe name="checkResource2" xpathExpression="boolean(/root/kanaal = 'documenten') and boolean(/root/resource = 'enkelvoudiginformatieobject')">
                 <Forward name="then" path="ZaakCreateSender" />
-                <Forward name="else" path="EXIT" />
+                <Forward name="else" path="Accepted" />
             </IfPipe>
 
             <!-- <SenderPipe
