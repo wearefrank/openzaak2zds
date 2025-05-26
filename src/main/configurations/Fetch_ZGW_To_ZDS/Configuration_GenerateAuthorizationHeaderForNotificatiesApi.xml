@@ -14,7 +14,7 @@
                 <Exit name="EXCEPTION" state="ERROR" />
             </Exits>
 
-            <Cache maxElementsInMemory="1" keyXPath="string('GenerateAuthorizationHeaderForNotificatiesApi')" timeToLiveSeconds="550" />
+            <!-- <Cache maxElementsInMemory="1" keyXPath="string('GenerateAuthorizationHeaderForNotificatiesApi')" timeToLiveSeconds="550" /> -->
 
             <XmlSwitchPipe 
                 name="CheckForAuthType"
