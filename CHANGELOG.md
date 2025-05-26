@@ -1,5 +1,17 @@
 [![conventional commits](https://img.shields.io/badge/conventional%20commits-1.0.0-yellow.svg)](https://conventionalcommits.org) [![semantic versioning](https://img.shields.io/badge/semantic%20versioning-2.0.0-green.svg)](https://semver.org)
 
+## [1.0.23](https://github.com/wearefrank/openzaak2zds/compare/v1.0.22...v1.0.23) (2025-05-26)
+
+### 🐛 Bug Fixes
+
+* bump to trigger build with new FF version that works on ARM ([e7bcc26](https://github.com/wearefrank/openzaak2zds/commit/e7bcc2699c96df2ffdef7a987c48c6ab51573b5d))
+* remove cache ([2d4533a](https://github.com/wearefrank/openzaak2zds/commit/2d4533a677085026b854d57402a77b9ca73ab991))
+* set version to 9.1.1-20250513.130355 and add LOC properties ([74cff4a](https://github.com/wearefrank/openzaak2zds/commit/74cff4a498d956a1a279d01f0b19ed0e8b9d3bef))
+
+### 🧑‍💻 Code Refactoring
+
+* empty configuration ([6b4acff](https://github.com/wearefrank/openzaak2zds/commit/6b4acff5f7b34f2a7c20a51f1ba4087084f03fc3))
+
 ## [1.0.22](https://github.com/wearefrank/openzaak2zds/compare/v1.0.21...v1.0.22) (2024-12-09)
 
 ### 🐛 Bug Fixes
