@@ -1,0 +1,11 @@
+<!DOCTYPE Configuration [
+	<!ENTITY SoapEndpointRouter SYSTEM "Configuration_SoapEndpointRouter.xml">
+	<!ENTITY ReplaceZaakIdentificatie SYSTEM "Configuration_ReplaceZaakIdentificatie.xml">
+	<!ENTITY CallCreateZaakIdentificatie SYSTEM "Configuration_CallCreateZaakIdentificatie.xml">
+]>
+
+<Configuration name="OpenFormulieren_To_ZDS">
+	&SoapEndpointRouter;
+	&ReplaceZaakIdentificatie;
+	&CallCreateZaakIdentificatie;
+</Configuration>
