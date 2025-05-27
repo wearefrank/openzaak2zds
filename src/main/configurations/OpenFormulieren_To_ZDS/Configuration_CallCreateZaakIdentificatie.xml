@@ -1,0 +1,45 @@
+<Adapter name="CallCreateZaakIdentificatie"
+         active="${CallCreateZaakIdentificatie.Active}"
+         description="">
+
+    <Receiver name="CallCreateZaakIdentificatie">
+        <JavaListener name="CallCreateZaakIdentificatie" returnedSessionKeys="Error" />
+    </Receiver>
+
+    <Pipeline>
+        <Exits>
+            <Exit name="EXIT" state="SUCCESS" />
+            <Exit name="EXCEPTION" state="ERROR" />
+        </Exits>
+
+        <SoapWrapperPipe name="WrapGenereerDocumentIdentificatie_Di02Request"
+                getInputFromFixedValue="&lt;EmptyInput/&gt;"
+                soapBodyStyleSheet="Common/xsl/CreateGenereerDocumentIdentificatie_Di02Request.xslt">
+            <Param name="Stuurgegevens" sessionKey="Stuurgegevens" type="DOMDOC" />
+        </SoapWrapperPipe>
+
+<!--        <SenderPipe name="GenereerZaakIdentificatie">-->
+<!--            <WebServiceSender-->
+<!--                    name="GenereerZaakIdentificatieSender"-->
+<!--                    soap="false"-->
+<!--                    soapAction="http://www.egem.nl/StUF/sector/zkn/0310/genereerZaakIdentificatie_Di02"-->
+<!--                    contentType="text/xml"-->
+<!--                    timeout="${openforms2zds.connections.vrije-berichten.timeout}"-->
+<!--                    throwApplicationFaults="false"-->
+<!--                    headersParams="x-opentunnel-api-key"-->
+<!--                    parametersToSkipWhenEmpty="*">-->
+<!--                <Param name="url" value="${openforms2zds.connections.vrije-berichten.endpoint}" />-->
+<!--                <Param name="x-opentunnel-api-key" pattern="{password}" authAlias="${openforms2zds.connections.vrije-berichten.auth-alias}" hidden="true" />-->
+<!--            </WebServiceSender>-->
+<!--            <Forward name="success" path="UnwrapGenereerZaakIdentificatie_Du02Response" />-->
+<!--            <Forward name="exception" path="SoapFault_Exception" />-->
+<!--        </SenderPipe>-->
+
+        <SoapWrapperPipe name="UnwrapGenereerZaakIdentificatie_Du02Response"
+                         storeResultInSessionKey="UnwrappedGenereerZaakIdentificatie_Du02Response"
+                         direction="UNWRAP"
+                         removeOutputNamespaces="true">
+            <Forward name="success" path="EXIT" />
+        </SoapWrapperPipe>
+    </Pipeline>
+</Adapter>
