@@ -1,0 +1,109 @@
+<Adapter name="VrijeBerichtenSoapEndpointRouter"
+         active="${VrijeBerichtenSoapEndpointRouter.Active}"
+         description="">
+
+    <Receiver name="VrijeBerichtenSoapEndpointRouter">
+        <WebServiceListener name="VrijeBerichtenSoapEndpointRouter" address="${openformulieren2zds.soap.vrijeberichten.endpoint}" soap="false"/>
+    </Receiver>
+
+    <Pipeline>
+        <Exits>
+            <Exit name="EXIT" state="SUCCESS" />
+            <Exit name="EXCEPTION" state="ERROR" />
+        </Exits>
+
+        <WsdlXmlValidatorPipe name="ValidateInput"
+                wsdl="Common/xsd/zkn0310_vrijeBerichten_zs-dms.wsdl"
+                outputFormat="XML"
+                ignoreUnknownNamespaces="true"
+                autoFormat="false">
+            <Forward name="success" path="UnwrapOriginalMessage"/>
+            <Forward name="failure" path="WsdlValidationSoftFailForwarder"/>
+        </WsdlXmlValidatorPipe>
+
+        <XmlSwitchPipe name="WsdlValidationSoftFailForwarder"
+                xpathExpression="$SoftFail = true()">
+            <Param name="SoftFail" value="${openformulieren2zds.soap.vrijeberichten.validation-soft-fail}" type="BOOLEAN"/>
+            <Forward name="true" path="LegalizeSoapActionForPipeName" />
+            <Forward name="false" path="InvalidXml" />
+        </XmlSwitchPipe>
+
+        <XsltPipe name="LegalizeSoapActionForPipeName"
+                preserveInput="true"
+                xpathExpression="replace($Action, '/', '_')"
+                storeResultInSessionKey="LegalizedSoapAction">
+            <Param name="Action" sessionKey="SOAPAction"/>
+            <Forward name="success" path="ForwardBySoapActionSwitch"/>
+            <Forward name="exception" path="BackEndError"/>
+        </XsltPipe>
+
+        <XmlSwitchPipe name="ForwardBySoapActionSwitch"
+                forwardNameSessionKey="LegalizedSoapAction"
+                notFoundForwardName="UnsupportedSoapActionError"/>
+
+        <!-- GenereerZaakIdentificatie_Di02 -->
+        <SenderPipe name="http:__www.egem.nl_StUF_sector_zkn_0310_genereerZaakIdentificatie_Di02">
+            <Forward name="success" path="SendToOpenzaak" />
+        </SenderPipe>
+
+        <!-- GenereerDocumentIdentificatie_Di02 -->
+        <EchoPipe name="http:__www.egem.nl_StUF_sector_zkn_0310_genereerDocumentIdentificatie_Di02">
+            <Forward name="success" path="SendToOpenzaak" />
+        </EchoPipe>
+
+        <SenderPipe name="SendToOpenzaak">
+            <!-- TODO: sender here-->
+            <EchoSender/>
+            <Forward name="success" path="EXIT" />
+            <Forward name="exception" path="BackEndError" />
+        </SenderPipe>
+
+        <XsltPipe name="UnsupportedSoapActionError"
+                getInputFromFixedValue="&lt;dummy/&gt;"
+                styleSheetName="Common/xsl/BuildError.xsl"
+                storeResultInSessionKey="Error">
+            <Param name="cause" sessionKey="Error" type="DOMDOC" />
+            <Param name="code" value="TechnicalError" /> <!-- codes: TechnicalError, TranslationError, ConfigurationError-->
+            <Param name="reason" pattern="Unsupported SOAP-action. No implementation found for: {SOAPAction}" />
+            <!-- <Param name="details" sessionKey="" /> -->
+            <!-- <Param name="detailsXml" type="DOMDOC" /> -->
+            <Forward name="success" path="BackEndError" />
+            <Forward name="exception" path="BackEndError" />
+        </XsltPipe>
+
+        <PutInSessionPipe name="InvalidXml">
+            <Param name="errorCode" value="INVALID_XML"/>
+            <Param name="errorReason" value="XML was invalid"/>
+            <Forward name="success" path="WrapFo03Response" />
+        </PutInSessionPipe>
+
+        <PutInSessionPipe name="NotWellFormed">
+            <Param name="errorCode" value="NOT_WELL_FORMED_XML"/>
+            <Param name="errorReason" value="XML was not according to xsd"/>
+            <Forward name="success" path="WrapFo03Response"/>
+        </PutInSessionPipe>
+
+        <PutInSessionPipe name="BackEndError"
+                unlessSessionKey="errorCode">
+            <Param name="errorCode" styleSheetName="Common/xsl/BackEndError.xsl" />
+            <Param name="errorReason" xpathExpression="(//error)[last()]/reason" />
+            <Param name="errorDetailText" xpathExpression="(//error)[last()]/details" />
+            <Param name="errorDetailXML" xpathExpression="/error" type="DOMDOC" />
+            <Forward name="success" path="WrapFo03Response" />
+        </PutInSessionPipe>
+
+        <SoapWrapperPipe name="WrapFo03Response"
+                emptyInputReplacement="&lt;EmptyInput/&gt;"
+                soapBodyStyleSheet="Common/xsl/CreateFo03Response.xslt">
+            <Param name="Stuurgegevens" sessionKey="Stuurgegevens" type="DOMDOC" />
+            <Param name="Parameters" sessionKey="Parameters" type="DOMDOC" />
+            <Param name="errorCode"   sessionKey="errorCode" />
+            <Param name="errorReason" sessionKey="errorReason" />
+            <Param name="errorDetailText" sessionKey="errorDetailText" />
+            <Param name="errorDetailXML" sessionKey="errorDetailXML" type="DOMDOC" />
+            <Forward name="success" path="EXIT"/>
+        </SoapWrapperPipe>
+
+    </Pipeline>
+
+</Adapter>
