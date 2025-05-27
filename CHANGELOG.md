@@ -1,5 +1,11 @@
 [![conventional commits](https://img.shields.io/badge/conventional%20commits-1.0.0-yellow.svg)](https://conventionalcommits.org) [![semantic versioning](https://img.shields.io/badge/semantic%20versioning-2.0.0-green.svg)](https://semver.org)
 
+## [1.1.1](https://github.com/wearefrank/openzaak2zds/compare/v1.1.0...v1.1.1) (2025-05-27)
+
+### 🐛 Bug Fixes
+
+* small things ([cacba9d](https://github.com/wearefrank/openzaak2zds/commit/cacba9d5906f39ce315cadf6cc0404e8c26a60f4))
+
 ## [1.1.0](https://github.com/wearefrank/openzaak2zds/compare/v1.0.23...v1.1.0) (2025-05-27)
 
 ### 🍕 Features
