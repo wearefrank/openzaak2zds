@@ -1,5 +1,11 @@
 [![conventional commits](https://img.shields.io/badge/conventional%20commits-1.0.0-yellow.svg)](https://conventionalcommits.org) [![semantic versioning](https://img.shields.io/badge/semantic%20versioning-2.0.0-green.svg)](https://semver.org)
 
+## [1.1.0](https://github.com/wearefrank/openzaak2zds/compare/v1.0.23...v1.1.0) (2025-05-27)
+
+### 🍕 Features
+
+* add openforms2zds start ([044646a](https://github.com/wearefrank/openzaak2zds/commit/044646a252f013d91eb50e4cae122ffd06365acb))
+
 ## [1.0.23](https://github.com/wearefrank/openzaak2zds/compare/v1.0.22...v1.0.23) (2025-05-26)
 
 ### 🐛 Bug Fixes
