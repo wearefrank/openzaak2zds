@@ -8,36 +8,23 @@
 
     <Pipeline>
         <Exits>
-            <Exit name="EXIT" state="SUCCESS" />
-            <Exit name="EXCEPTION" state="ERROR" />
-        </Exits>
-
-        <Exits>
             <Exit name="EXIT" state="SUCCESS"/>
             <Exit name="EXCEPTION" state="ERROR"/>
         </Exits>
 
-        <WsdlXmlValidatorPipe name="ValidateInput"
-                ignoreUnknownNamespaces="true"
-                wsdl="Common/xsd/zkn0310_beantwoordVraag_zs-dms.wsdl">
-            <Forward name="success" path="UnwrapSoapMessage"/>
-            <Forward name="failure" path="WsdlValidationSoftFailForwarder"/>
-        </WsdlXmlValidatorPipe>
+<!--        <WsdlXmlValidatorPipe name="ValidateInput"-->
+<!--                ignoreUnknownNamespaces="true"-->
+<!--                wsdl="Common/xsd/zkn0310_beantwoordVraag_zs-dms.wsdl">-->
+<!--            <Forward name="success" path="LegalizeSoapActionForPipeName"/>-->
+<!--            <Forward name="failure" path="WsdlValidationSoftFailForwarder"/>-->
+<!--        </WsdlXmlValidatorPipe>-->
 
         <XmlSwitchPipe name="WsdlValidationSoftFailForwarder"
                 xpathExpression="$SoftFail = true()">
             <Param name="SoftFail" value="${zaakbrug.soap.beantwoord-vraag.validation-soft-fail}" type="BOOLEAN"/>
-            <Forward name="true" path="UnwrapSoapMessage" />
+            <Forward name="true" path="LegalizeSoapActionForPipeName" />
             <Forward name="false" path="InvalidXml" />
         </XmlSwitchPipe>
-
-        <PutInSessionPipe name="StoreResponeContextSessionKeys">
-            <Param name="Stuurgegevens" xpathExpression="/*/stuurgegevens" defaultValue="&lt;stuurgegevens/&gt;" type="DOMDOC" />
-            <Param name="Parameters" xpathExpression="/*/parameters" defaultValue="&lt;parameters/&gt;" type="DOMDOC" />
-            <Param name="Scope" xpathExpression="/*/scope" defaultValue="&lt;scope/&gt;" type="DOMDOC" />
-            <Forward name="success" path="LegalizeSoapActionForPipeName"/>
-            <Forward name="exception" path="BackEndError"/>
-        </PutInSessionPipe>
 
         <XsltPipe name="LegalizeSoapActionForPipeName"
                 preserveInput="true"

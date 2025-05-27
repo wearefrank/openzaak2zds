@@ -1,5 +1,5 @@
 <Adapter name="AsyncSoapEndpointRouter"
-         active="${AsyncSoapEndpointRouter.Active}"
+         active="${openformulieren2zds.soap.async.Active}"
          description="">
 
     <Receiver name="AsyncSoapEndpointRouter">
@@ -12,12 +12,12 @@
             <Exit name="EXCEPTION" state="ERROR"/>
         </Exits>
 
-        <WsdlXmlValidatorPipe name="ValidateInput"
-                ignoreUnknownNamespaces="true"
-                wsdl="Common/xsd/zkn0310_ontvangAsynchroon_mutatie_zs-dms.wsdl">
-            <Forward name="success" path="UnwrapSoapMessage"/>
-            <Forward name="failure" path="WsdlValidationSoftFailForwarder"/>
-        </WsdlXmlValidatorPipe>
+<!--        <WsdlXmlValidatorPipe name="ValidateInput"-->
+<!--                ignoreUnknownNamespaces="true"-->
+<!--                wsdl="Common/xsd/zkn0310_ontvangAsynchroon_mutatie_zs-dms.wsdl">-->
+<!--            <Forward name="success" path="LegalizeSoapActionForPipeName"/>-->
+<!--            <Forward name="failure" path="WsdlValidationSoftFailForwarder"/>-->
+<!--        </WsdlXmlValidatorPipe>-->
 
         <XmlSwitchPipe name="WsdlValidationSoftFailForwarder"
                 xpathExpression="$SoftFail = true()">

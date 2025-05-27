@@ -1,5 +1,5 @@
 <Adapter name="VrijeBerichtenSoapEndpointRouter"
-         active="${VrijeBerichtenSoapEndpointRouter.Active}"
+         active="${openformulieren2zds.soap.vrijeberichten.Active}"
          description="">
 
     <Receiver name="VrijeBerichtenSoapEndpointRouter">
@@ -12,14 +12,14 @@
             <Exit name="EXCEPTION" state="ERROR" />
         </Exits>
 
-        <WsdlXmlValidatorPipe name="ValidateInput"
-                wsdl="Common/xsd/zkn0310_vrijeBerichten_zs-dms.wsdl"
-                outputFormat="XML"
-                ignoreUnknownNamespaces="true"
-                autoFormat="false">
-            <Forward name="success" path="UnwrapOriginalMessage"/>
-            <Forward name="failure" path="WsdlValidationSoftFailForwarder"/>
-        </WsdlXmlValidatorPipe>
+<!--        <WsdlXmlValidatorPipe name="ValidateInput"-->
+<!--                wsdl="Common/xsd/zkn0310_vrijeBerichten_zs-dms.wsdl"-->
+<!--                outputFormat="XML"-->
+<!--                ignoreUnknownNamespaces="true"-->
+<!--                autoFormat="false">-->
+<!--            <Forward name="success" path="LegalizeSoapActionForPipeName"/>-->
+<!--            <Forward name="failure" path="WsdlValidationSoftFailForwarder"/>-->
+<!--        </WsdlXmlValidatorPipe>-->
 
         <XmlSwitchPipe name="WsdlValidationSoftFailForwarder"
                 xpathExpression="$SoftFail = true()">
@@ -42,9 +42,9 @@
                 notFoundForwardName="UnsupportedSoapActionError"/>
 
         <!-- GenereerZaakIdentificatie_Di02 -->
-        <SenderPipe name="http:__www.egem.nl_StUF_sector_zkn_0310_genereerZaakIdentificatie_Di02">
+        <EchoPipe name="http:__www.egem.nl_StUF_sector_zkn_0310_genereerZaakIdentificatie_Di02">
             <Forward name="success" path="SendToOpenzaak" />
-        </SenderPipe>
+        </EchoPipe>
 
         <!-- GenereerDocumentIdentificatie_Di02 -->
         <EchoPipe name="http:__www.egem.nl_StUF_sector_zkn_0310_genereerDocumentIdentificatie_Di02">
