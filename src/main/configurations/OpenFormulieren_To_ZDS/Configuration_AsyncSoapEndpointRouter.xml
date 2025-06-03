@@ -3,7 +3,7 @@
          description="">
 
     <Receiver name="AsyncSoapEndpointRouter">
-        <WebServiceListener name="AsyncSoapEndpointRouter" address="${openformulieren2zds.soap.async.endpoint}" soap="false"/>
+        <WebServiceListener name="AsyncSoapEndpointRouter" address="${openformulieren2zds.soap.async.endpoint}" soap="true"/>
     </Receiver>
 
     <Pipeline>
@@ -49,9 +49,9 @@
             <Forward name="success" path="SendToZaakbrug" />
         </EchoPipe>
 
-        <SenderPipe name="SendToZaakbrug">
+        <SenderPipe name="SendToZaakbrug" preserveInput="true" storeResultInSessionKey="zaakbrugResponse">
             <WebServiceSender name="SendToZaakbrugSender"
-                    soap="false"
+                    soap="true"
                     url="${openformulieren2zds.zaakbrug.async.url}"
                     timeout="${openformulieren2zds.zaakbrug.async.timeout}"
                     verifyHostname="${openformulieren2zds.zaakbrug.async.verifyHostname}"
@@ -72,7 +72,7 @@
 
         <SenderPipe name="SendToSSD">
             <WebServiceSender name="SendToSSDSender"
-                    soap="false"
+                    soap="true"
                     url="${openformulieren2zds.SSD.async.url}"
                     timeout="${openformulieren2zds.SSD.async.timeout}"
                     verifyHostname="${openformulieren2zds.SSD.async.verifyHostname}"
@@ -87,9 +87,13 @@
                     keystoreType="${openformulieren2zds.SSD.async.keystore.type}">
                 <Param name="SoapAction" sessionKey="SOAPAction"/>
             </WebServiceSender>
-            <Forward name="success" path="EXIT" />
+            <Forward name="success" path="EchoZaakbrugResponse" />
             <Forward name="exception" path="BackEndError" />
         </SenderPipe>
+
+        <EchoPipe name="EchoZaakbrugResponse" getInputFromSessionKey="zaakbrugResponse">
+            <Forward name="success" path="EXIT"/>
+        </EchoPipe>
 
         <!-- ERRORS -->
         <XsltPipe

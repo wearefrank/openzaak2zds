@@ -3,7 +3,7 @@
          description="">
 
     <Receiver name="VrijeBerichtenSoapEndpointRouter">
-        <WebServiceListener name="VrijeBerichtenSoapEndpointRouter" address="${openformulieren2zds.soap.vrijeberichten.endpoint}" soap="false"/>
+        <WebServiceListener name="VrijeBerichtenSoapEndpointRouter" address="${openformulieren2zds.soap.vrijeberichten.endpoint}" soap="true"/>
     </Receiver>
 
     <Pipeline>
@@ -53,7 +53,7 @@
 
         <SenderPipe name="SendToZaakbrug">
             <WebServiceSender name="SendToZaakbrugSender"
-                    soap="false"
+                    soap="true"
                     url="${openformulieren2zds.zaakbrug.async.url}"
                     timeout="${openformulieren2zds.zaakbrug.async.timeout}"
                     verifyHostname="${openformulieren2zds.zaakbrug.async.verifyHostname}"
