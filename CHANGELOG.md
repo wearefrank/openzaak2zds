@@ -1,5 +1,11 @@
 [![conventional commits](https://img.shields.io/badge/conventional%20commits-1.0.0-yellow.svg)](https://conventionalcommits.org) [![semantic versioning](https://img.shields.io/badge/semantic%20versioning-2.0.0-green.svg)](https://semver.org)
 
+## [1.1.3](https://github.com/wearefrank/openzaak2zds/compare/v1.1.2...v1.1.3) (2025-06-03)
+
+### 🐛 Bug Fixes
+
+* add outgoing senders and local test stuff ([c7f0d09](https://github.com/wearefrank/openzaak2zds/commit/c7f0d094bcf30d2a8052bfbdf1bb933a4c810717))
+
 ## [1.1.2](https://github.com/wearefrank/openzaak2zds/compare/v1.1.1...v1.1.2) (2025-06-03)
 
 ### 🐛 Bug Fixes
