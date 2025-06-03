@@ -1,6 +1,13 @@
 version: '3.8'
 
 services:
+  nginx:
+    image: nginx
+    volumes:
+      - ./contrib/nginx.conf:/etc/nginx/conf.d/default.conf
+    depends_on:
+      - frank
+
   frank:
     build: .
     image: wearefrank/openzaak2zds:${VERSION:-latest}
@@ -15,5 +22,7 @@ services:
       - .env
     volumes:
       - ${SECRETS_PATH:-./src/main/secrets}:/opt/frank/secrets
+      - ./src/main/configurations:/opt/frank/configurations
+      - ./src/main/resources:/opt/frank/resources
     restart: unless-stopped
 
