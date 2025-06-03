@@ -28,7 +28,7 @@
 	]>
 
 <Configuration name="Fetch_ZGW_To_ZDS">
-	&ApplyValueOverridesZgwToZds;
+	<!-- &ApplyValueOverridesZgwToZds;
 	&GeefZaakdetails_Lv01;
 	&GetRollenByBsn;
 	&GetZaakDetailsByRol;
@@ -53,5 +53,5 @@
 	&Fetch_ZGW_To_ZDS_Creeerzaak1;
 	&GenerateAuthorizationHeaderForCatalogiApi;
 	&GenerateAuthorizationHeaderForZakenApi;
-	&GenerateAuthorizationHeaderForNotificatiesApi;
+	&GenerateAuthorizationHeaderForNotificatiesApi; -->
 </Configuration>
