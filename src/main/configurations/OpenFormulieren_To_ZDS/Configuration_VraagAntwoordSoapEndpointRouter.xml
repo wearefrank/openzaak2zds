@@ -12,16 +12,16 @@
             <Exit name="EXCEPTION" state="ERROR"/>
         </Exits>
 
-<!--        <WsdlXmlValidatorPipe name="ValidateInput"-->
-<!--                ignoreUnknownNamespaces="true"-->
-<!--                wsdl="Common/xsd/zkn0310_beantwoordVraag_zs-dms.wsdl">-->
-<!--            <Forward name="success" path="LegalizeSoapActionForPipeName"/>-->
-<!--            <Forward name="failure" path="WsdlValidationSoftFailForwarder"/>-->
-<!--        </WsdlXmlValidatorPipe>-->
+        <WsdlXmlInputValidator name="ValidateInput"
+                ignoreUnknownNamespaces="true"
+                wsdl="Common/xsd/Zaak_DocumentServices_1_1_02/zkn0310/zs-dms/zkn0310_beantwoordVraag_zs-dms.wsdl">
+            <Forward name="success" path="LegalizeSoapActionForPipeName"/>
+            <Forward name="failure" path="WsdlValidationSoftFailForwarder"/>
+        </WsdlXmlInputValidator>
 
         <XmlSwitchPipe name="WsdlValidationSoftFailForwarder"
                 xpathExpression="$SoftFail = true()">
-            <Param name="SoftFail" value="${zaakbrug.soap.beantwoord-vraag.validation-soft-fail}" type="BOOLEAN"/>
+            <Param name="SoftFail" value="${openformulieren2zds.soap.vraagantwoord.validation-soft-fail}" type="BOOLEAN"/>
             <Forward name="true" path="LegalizeSoapActionForPipeName" />
             <Forward name="false" path="InvalidXml" />
         </XmlSwitchPipe>
