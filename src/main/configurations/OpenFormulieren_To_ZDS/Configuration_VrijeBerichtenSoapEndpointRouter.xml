@@ -43,17 +43,31 @@
 
         <!-- GenereerZaakIdentificatie_Di02 -->
         <EchoPipe name="http:__www.egem.nl_StUF_sector_zkn_0310_genereerZaakIdentificatie_Di02">
-            <Forward name="success" path="SendToOpenzaak" />
+            <Forward name="success" path="SendToZaakbrug" />
         </EchoPipe>
 
         <!-- GenereerDocumentIdentificatie_Di02 -->
         <EchoPipe name="http:__www.egem.nl_StUF_sector_zkn_0310_genereerDocumentIdentificatie_Di02">
-            <Forward name="success" path="SendToOpenzaak" />
+            <Forward name="success" path="SendToZaakbrug" />
         </EchoPipe>
 
-        <SenderPipe name="SendToOpenzaak">
-            <!-- TODO: sender here-->
-            <EchoSender/>
+        <SenderPipe name="SendToZaakbrug">
+            <WebServiceSender name="SendToZaakbrugSender"
+                    soap="false"
+                    url="${openformulieren2zds.zaakbrug.async.url}"
+                    timeout="${openformulieren2zds.zaakbrug.async.timeout}"
+                    verifyHostname="${openformulieren2zds.zaakbrug.async.verifyHostname}"
+                    allowSelfSignedCertificates="${openformulieren2zds.zaakbrug.async.allowSelfSignedCertificates}"
+                    disableCookies="${openformulieren2zds.zaakbrug.async.disableCookies}"
+                    ignoreCertificateExpiredException="${openformulieren2zds.zaakbrug.async.ignoreCertificateExpiredException}"
+                    truststore="${openformulieren2zds.zaakbrug.async.truststore.uri}"
+                    truststoreAuthAlias="${openformulieren2zds.zaakbrug.async.truststore.authAlias}"
+                    truststoreType="${openformulieren2zds.zaakbrug.async.truststore.type}"
+                    keystore="${openformulieren2zds.zaakbrug.async.keystore.uri}"
+                    keystoreAuthAlias="${openformulieren2zds.zaakbrug.async.keystore.authAlias}"
+                    keystoreType="${openformulieren2zds.zaakbrug.async.keystore.type}">
+                <Param name="SoapAction" sessionKey="SOAPAction"/>
+            </WebServiceSender>
             <Forward name="success" path="EXIT" />
             <Forward name="exception" path="BackEndError" />
         </SenderPipe>

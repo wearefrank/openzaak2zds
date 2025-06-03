@@ -41,17 +41,52 @@
 
         <!-- CreeerZaak_Lk01 -->
         <EchoPipe name="http:__www.egem.nl_StUF_sector_zkn_0310_creeerZaak_Lk01">
-            <Forward name="success" path="SendToOpenzaak" />
+            <Forward name="success" path="SendToZaakbrug" />
         </EchoPipe>
 
         <!-- VoegZaakdocumentToe_Lk01 -->
         <EchoPipe name="http:__www.egem.nl_StUF_sector_zkn_0310_voegZaakdocumentToe_Lk01">
-            <Forward name="success" path="SendToOpenzaak" />
+            <Forward name="success" path="SendToZaakbrug" />
         </EchoPipe>
 
-        <SenderPipe name="SendToOpenzaak">
-            <!-- TODO: sender here-->
-            <EchoSender/>
+        <SenderPipe name="SendToZaakbrug">
+            <WebServiceSender name="SendToZaakbrugSender"
+                    soap="false"
+                    url="${openformulieren2zds.zaakbrug.async.url}"
+                    timeout="${openformulieren2zds.zaakbrug.async.timeout}"
+                    verifyHostname="${openformulieren2zds.zaakbrug.async.verifyHostname}"
+                    allowSelfSignedCertificates="${openformulieren2zds.zaakbrug.async.allowSelfSignedCertificates}"
+                    disableCookies="${openformulieren2zds.zaakbrug.async.disableCookies}"
+                    ignoreCertificateExpiredException="${openformulieren2zds.zaakbrug.async.ignoreCertificateExpiredException}"
+                    truststore="${openformulieren2zds.zaakbrug.async.truststore.uri}"
+                    truststoreAuthAlias="${openformulieren2zds.zaakbrug.async.truststore.authAlias}"
+                    truststoreType="${openformulieren2zds.zaakbrug.async.truststore.type}"
+                    keystore="${openformulieren2zds.zaakbrug.async.keystore.uri}"
+                    keystoreAuthAlias="${openformulieren2zds.zaakbrug.async.keystore.authAlias}"
+                    keystoreType="${openformulieren2zds.zaakbrug.async.keystore.type}">
+                <Param name="SoapAction" sessionKey="SOAPAction"/>
+            </WebServiceSender>
+            <Forward name="success" path="SendToSSD" />
+            <Forward name="exception" path="BackEndError" />
+        </SenderPipe>
+
+        <SenderPipe name="SendToSSD">
+            <WebServiceSender name="SendToSSDSender"
+                    soap="false"
+                    url="${openformulieren2zds.SSD.async.url}"
+                    timeout="${openformulieren2zds.SSD.async.timeout}"
+                    verifyHostname="${openformulieren2zds.SSD.async.verifyHostname}"
+                    allowSelfSignedCertificates="${openformulieren2zds.SSD.async.allowSelfSignedCertificates}"
+                    disableCookies="${openformulieren2zds.SSD.async.disableCookies}"
+                    ignoreCertificateExpiredException="${openformulieren2zds.SSD.async.ignoreCertificateExpiredException}"
+                    truststore="${openformulieren2zds.SSD.async.truststore.uri}"
+                    truststoreAuthAlias="${openformulieren2zds.SSD.async.truststore.authAlias}"
+                    truststoreType="${openformulieren2zds.SSD.async.truststore.type}"
+                    keystore="${openformulieren2zds.SSD.async.keystore.uri}"
+                    keystoreAuthAlias="${openformulieren2zds.SSD.async.keystore.authAlias}"
+                    keystoreType="${openformulieren2zds.SSD.async.keystore.type}">
+                <Param name="SoapAction" sessionKey="SOAPAction"/>
+            </WebServiceSender>
             <Forward name="success" path="EXIT" />
             <Forward name="exception" path="BackEndError" />
         </SenderPipe>
