@@ -1,5 +1,11 @@
 [![conventional commits](https://img.shields.io/badge/conventional%20commits-1.0.0-yellow.svg)](https://conventionalcommits.org) [![semantic versioning](https://img.shields.io/badge/semantic%20versioning-2.0.0-green.svg)](https://semver.org)
 
+## [1.1.4](https://github.com/wearefrank/openzaak2zds/compare/v1.1.3...v1.1.4) (2025-06-03)
+
+### 🐛 Bug Fixes
+
+* change soap to true in hopes of fixing error ([7bca6b6](https://github.com/wearefrank/openzaak2zds/commit/7bca6b68023b35189d8d0b44e7507cfd7598677c))
+
 ## [1.1.3](https://github.com/wearefrank/openzaak2zds/compare/v1.1.2...v1.1.3) (2025-06-03)
 
 ### 🐛 Bug Fixes
