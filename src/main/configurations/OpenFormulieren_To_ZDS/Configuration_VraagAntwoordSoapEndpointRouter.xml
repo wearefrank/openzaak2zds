@@ -3,7 +3,7 @@
          description="">
 
     <Receiver name="VraagAntwoordSoapEndpointRouter">
-        <WebServiceListener name="VraagAntwoordSoapEndpointRouter" address="${openformulieren2zds.soap.vraagantwoord.endpoint}" soap="false"/>
+        <WebServiceListener name="VraagAntwoordSoapEndpointRouter" address="${openformulieren2zds.soap.vraagantwoord.endpoint}" soap="true"/>
     </Receiver>
 
     <Pipeline>
