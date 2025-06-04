@@ -1,5 +1,11 @@
 [![conventional commits](https://img.shields.io/badge/conventional%20commits-1.0.0-yellow.svg)](https://conventionalcommits.org) [![semantic versioning](https://img.shields.io/badge/semantic%20versioning-2.0.0-green.svg)](https://semver.org)
 
+## [1.1.5](https://github.com/wearefrank/openzaak2zds/compare/v1.1.4...v1.1.5) (2025-06-04)
+
+### 🐛 Bug Fixes
+
+* vrijeBerichten endpoint forwards to ZaakBrug ontvangAsynchroon ([1c925a3](https://github.com/wearefrank/openzaak2zds/commit/1c925a3e40942d4d6294ba041ea438f07fac2984))
+
 ## [1.1.4](https://github.com/wearefrank/openzaak2zds/compare/v1.1.3...v1.1.4) (2025-06-03)
 
 ### 🐛 Bug Fixes
