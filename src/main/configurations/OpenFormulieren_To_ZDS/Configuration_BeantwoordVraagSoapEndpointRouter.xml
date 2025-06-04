@@ -1,28 +1,26 @@
 <Module xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../FrankConfig.xsd">
-    <Adapter name="VrijeBerichtenSoapEndpointRouter"
-            active="${openformulieren2zds.soap.vrijeberichten.Active}"
+    <Adapter name="BeantwoordVraagSoapEndpointRouter"
+            active="${openformulieren2zds.soap.vraagantwoord.Active}"
             description="">
 
         <Receiver
-            name="VrijeBerichtenSoapEndpointRouter">
+            name="BeantwoordVraagSoapEndpointRouter">
             <WebServiceListener
-                name="VrijeBerichtenSoapEndpointRouter"
-                address="${openformulieren2zds.soap.vrijeberichten.endpoint}"
-                soap="true"/>
+                name="BeantwoordVraagSoapEndpointRouter"
+                address="${openformulieren2zds.soap.vraagantwoord.endpoint}"
+                soap="true" />
         </Receiver>
 
         <Pipeline>
             <Exits>
-                <Exit name="EXIT" state="SUCCESS" />
-                <Exit name="EXCEPTION" state="ERROR" />
+                <Exit name="EXIT" state="SUCCESS"/>
+                <Exit name="EXCEPTION" state="ERROR"/>
             </Exits>
 
             <WsdlXmlValidatorPipe
                 name="ValidateInput"
-                wsdl="Common/xsd/Zaak_DocumentServices_1_1_02/zkn0310/zs-dms/zkn0310_vrijeBerichten_zs-dms.wsdl"
-                outputFormat="XML"
                 ignoreUnknownNamespaces="true"
-                autoFormat="false">
+                wsdl="Common/xsd/Zaak_DocumentServices_1_1_02/zkn0310/zs-dms/zkn0310_beantwoordVraag_zs-dms.wsdl">
                 <Forward name="success" path="LegalizeSoapActionForPipeName"/>
                 <Forward name="failure" path="WsdlValidationSoftFailForwarder"/>
             </WsdlXmlValidatorPipe>
@@ -30,7 +28,7 @@
             <XmlSwitchPipe
                 name="WsdlValidationSoftFailForwarder"
                 xpathExpression="$SoftFail = true()">
-                <Param name="SoftFail" value="${openformulieren2zds.soap.vrijeberichten.validation-soft-fail}" type="BOOLEAN"/>
+                <Param name="SoftFail" value="${openformulieren2zds.soap.vraagantwoord.validation-soft-fail}" type="BOOLEAN"/>
                 <Forward name="true" path="LegalizeSoapActionForPipeName" />
                 <Forward name="false" path="InvalidXml" />
             </XmlSwitchPipe>
@@ -50,42 +48,7 @@
                 forwardNameSessionKey="LegalizedSoapAction"
                 notFoundForwardName="UnsupportedSoapActionError"/>
 
-            <!-- GenereerZaakIdentificatie_Di02 -->
-            <EchoPipe
-                name="http:__www.egem.nl_StUF_sector_zkn_0310_genereerZaakIdentificatie_Di02">
-                <Forward name="success" path="SendToZaakbrug" />
-            </EchoPipe>
-
-            <!-- GenereerDocumentIdentificatie_Di02 -->
-            <EchoPipe
-                name="http:__www.egem.nl_StUF_sector_zkn_0310_genereerDocumentIdentificatie_Di02">
-                <Forward name="success" path="SendToZaakbrug" />
-            </EchoPipe>
-
-            <SenderPipe
-                name="SendToZaakbrug">
-                <WebServiceSender
-                    name="SendToZaakbrugSender"
-                    soap="true"
-                    soapActionParam="SOAPAction"
-                    url="${openformulieren2zds.zaakbrug.vrijeberichten.url}"
-                    timeout="${openformulieren2zds.zaakbrug.vrijeberichten.timeout}"
-                    verifyHostname="${openformulieren2zds.zaakbrug.vrijeberichten.verifyHostname}"
-                    allowSelfSignedCertificates="${openformulieren2zds.zaakbrug.vrijeberichten.allowSelfSignedCertificates}"
-                    disableCookies="${openformulieren2zds.zaakbrug.vrijeberichten.disableCookies}"
-                    ignoreCertificateExpiredException="${openformulieren2zds.zaakbrug.vrijeberichten.ignoreCertificateExpiredException}"
-                    truststore="${openformulieren2zds.zaakbrug.vrijeberichten.truststore.uri}"
-                    truststoreAuthAlias="${openformulieren2zds.zaakbrug.vrijeberichten.truststore.authAlias}"
-                    truststoreType="${openformulieren2zds.zaakbrug.vrijeberichten.truststore.type}"
-                    keystore="${openformulieren2zds.zaakbrug.vrijeberichten.keystore.uri}"
-                    keystoreAuthAlias="${openformulieren2zds.zaakbrug.vrijeberichten.keystore.authAlias}"
-                    keystoreType="${openformulieren2zds.zaakbrug.vrijeberichten.keystore.type}">
-                    <Param name="SOAPAction" sessionKey="SOAPAction" />
-                </WebServiceSender>
-                <Forward name="success" path="EXIT" />
-                <Forward name="exception" path="BackEndError" />
-            </SenderPipe>
-
+            <!-- ERRORS -->
             <XsltPipe
                 name="UnsupportedSoapActionError"
                 getInputFromFixedValue="&lt;dummy/&gt;"
@@ -126,17 +89,15 @@
 
             <SoapWrapperPipe
                 name="WrapFo03Response"
-                emptyInputReplacement="&lt;EmptyInput/&gt;"
                 soapBodyStyleSheet="Common/xsl/CreateFo03Response.xslt">
-                <Param name="Stuurgegevens" sessionKey="Stuurgegevens" type="DOMDOC" />
-                <Param name="Parameters" sessionKey="Parameters" type="DOMDOC" />
-                <Param name="errorCode"   sessionKey="errorCode" />
-                <Param name="errorReason" sessionKey="errorReason" />
-                <Param name="errorDetailText" sessionKey="errorDetailText" />
-                <Param name="errorDetailXML" sessionKey="errorDetailXML" type="DOMDOC" />
+                <Param name="Stuurgegevens" sessionKey="Stuurgegevens" type="DOMDOC"/>
+                <Param name="Parameters" sessionKey="Parameters" type="DOMDOC"/>
+                <Param name="errorCode"   sessionKey="errorCode"/>
+                <Param name="errorReason" sessionKey="errorReason"/>
+                <Param name="errorDetailText" sessionKey="errorDetailText"/>
+                <Param name="errorDetailXML" sessionKey="errorDetailXML" type="DOMDOC"/>
                 <Forward name="success" path="EXIT"/>
             </SoapWrapperPipe>
-
         </Pipeline>
     </Adapter>
 </Module>

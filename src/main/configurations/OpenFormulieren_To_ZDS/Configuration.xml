@@ -1,11 +1,11 @@
 <!DOCTYPE Configuration [
-	<!ENTITY AsyncSoapEndpointRouter SYSTEM "Configuration_AsyncSoapEndpointRouter.xml">
-	<!ENTITY VraagAntwoordSoapEndpointRouter SYSTEM "Configuration_VraagAntwoordSoapEndpointRouter.xml">
+	<!ENTITY OntvangAsynchroonSoapEndpointRouter SYSTEM "Configuration_OntvangAsynchroonSoapEndpointRouter.xml">
+	<!ENTITY BeantwoordVraagSoapEndpointRouter SYSTEM "Configuration_BeantwoordVraagSoapEndpointRouter.xml">
 	<!ENTITY VrijeBerichtenSoapEndpointRouter SYSTEM "Configuration_VrijeBerichtenSoapEndpointRouter.xml">
 ]>
 
 <Configuration name="OpenFormulieren_To_ZDS">
-	&AsyncSoapEndpointRouter;
-	&VraagAntwoordSoapEndpointRouter;
+	&OntvangAsynchroonSoapEndpointRouter;
+	&BeantwoordVraagSoapEndpointRouter;
 	&VrijeBerichtenSoapEndpointRouter;
 </Configuration>

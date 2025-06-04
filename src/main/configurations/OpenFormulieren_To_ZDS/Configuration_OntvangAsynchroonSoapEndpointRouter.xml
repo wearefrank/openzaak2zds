@@ -1,28 +1,26 @@
 <Module xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../FrankConfig.xsd">
-    <Adapter name="VrijeBerichtenSoapEndpointRouter"
-            active="${openformulieren2zds.soap.vrijeberichten.Active}"
-            description="">
+    <Adapter name="OntvangAsynchroonSoapEndpointRouter"
+        active="${openformulieren2zds.soap.async.Active}"
+        description="">
 
         <Receiver
-            name="VrijeBerichtenSoapEndpointRouter">
+            name="OntvangAsynchroonSoapEndpointRouter">
             <WebServiceListener
-                name="VrijeBerichtenSoapEndpointRouter"
-                address="${openformulieren2zds.soap.vrijeberichten.endpoint}"
+                name="OntvangAsynchroonSoapEndpointRouter"
+                address="${openformulieren2zds.soap.async.endpoint}"
                 soap="true"/>
         </Receiver>
 
         <Pipeline>
             <Exits>
-                <Exit name="EXIT" state="SUCCESS" />
-                <Exit name="EXCEPTION" state="ERROR" />
+                <Exit name="EXIT" state="SUCCESS"/>
+                <Exit name="EXCEPTION" state="ERROR"/>
             </Exits>
 
             <WsdlXmlValidatorPipe
                 name="ValidateInput"
-                wsdl="Common/xsd/Zaak_DocumentServices_1_1_02/zkn0310/zs-dms/zkn0310_vrijeBerichten_zs-dms.wsdl"
-                outputFormat="XML"
                 ignoreUnknownNamespaces="true"
-                autoFormat="false">
+                wsdl="Common/xsd/Zaak_DocumentServices_1_1_02/zkn0310/zs-dms/zkn0310_ontvangAsynchroon_mutatie_zs-dms.wsdl">
                 <Forward name="success" path="LegalizeSoapActionForPipeName"/>
                 <Forward name="failure" path="WsdlValidationSoftFailForwarder"/>
             </WsdlXmlValidatorPipe>
@@ -30,7 +28,7 @@
             <XmlSwitchPipe
                 name="WsdlValidationSoftFailForwarder"
                 xpathExpression="$SoftFail = true()">
-                <Param name="SoftFail" value="${openformulieren2zds.soap.vrijeberichten.validation-soft-fail}" type="BOOLEAN"/>
+                <Param name="SoftFail" value="${openformulieren2zds.soap.async.validation-soft-fail}" type="BOOLEAN"/>
                 <Forward name="true" path="LegalizeSoapActionForPipeName" />
                 <Forward name="false" path="InvalidXml" />
             </XmlSwitchPipe>
@@ -50,42 +48,75 @@
                 forwardNameSessionKey="LegalizedSoapAction"
                 notFoundForwardName="UnsupportedSoapActionError"/>
 
-            <!-- GenereerZaakIdentificatie_Di02 -->
-            <EchoPipe
-                name="http:__www.egem.nl_StUF_sector_zkn_0310_genereerZaakIdentificatie_Di02">
+            <!-- CreeerZaak_Lk01 -->
+            <EchoPipe 
+                name="http:__www.egem.nl_StUF_sector_zkn_0310_creeerZaak_Lk01">
                 <Forward name="success" path="SendToZaakbrug" />
             </EchoPipe>
 
-            <!-- GenereerDocumentIdentificatie_Di02 -->
+            <!-- VoegZaakdocumentToe_Lk01 -->
             <EchoPipe
-                name="http:__www.egem.nl_StUF_sector_zkn_0310_genereerDocumentIdentificatie_Di02">
+                name="http:__www.egem.nl_StUF_sector_zkn_0310_voegZaakdocumentToe_Lk01">
                 <Forward name="success" path="SendToZaakbrug" />
             </EchoPipe>
 
             <SenderPipe
-                name="SendToZaakbrug">
+                name="SendToZaakbrug"
+                preserveInput="true"
+                storeResultInSessionKey="zaakbrugResponse">
                 <WebServiceSender
                     name="SendToZaakbrugSender"
                     soap="true"
                     soapActionParam="SOAPAction"
-                    url="${openformulieren2zds.zaakbrug.vrijeberichten.url}"
-                    timeout="${openformulieren2zds.zaakbrug.vrijeberichten.timeout}"
-                    verifyHostname="${openformulieren2zds.zaakbrug.vrijeberichten.verifyHostname}"
-                    allowSelfSignedCertificates="${openformulieren2zds.zaakbrug.vrijeberichten.allowSelfSignedCertificates}"
-                    disableCookies="${openformulieren2zds.zaakbrug.vrijeberichten.disableCookies}"
-                    ignoreCertificateExpiredException="${openformulieren2zds.zaakbrug.vrijeberichten.ignoreCertificateExpiredException}"
-                    truststore="${openformulieren2zds.zaakbrug.vrijeberichten.truststore.uri}"
-                    truststoreAuthAlias="${openformulieren2zds.zaakbrug.vrijeberichten.truststore.authAlias}"
-                    truststoreType="${openformulieren2zds.zaakbrug.vrijeberichten.truststore.type}"
-                    keystore="${openformulieren2zds.zaakbrug.vrijeberichten.keystore.uri}"
-                    keystoreAuthAlias="${openformulieren2zds.zaakbrug.vrijeberichten.keystore.authAlias}"
-                    keystoreType="${openformulieren2zds.zaakbrug.vrijeberichten.keystore.type}">
+                    url="${openformulieren2zds.zaakbrug.async.url}"
+                    timeout="${openformulieren2zds.zaakbrug.async.timeout}"
+                    verifyHostname="${openformulieren2zds.zaakbrug.async.verifyHostname}"
+                    allowSelfSignedCertificates="${openformulieren2zds.zaakbrug.async.allowSelfSignedCertificates}"
+                    disableCookies="${openformulieren2zds.zaakbrug.async.disableCookies}"
+                    ignoreCertificateExpiredException="${openformulieren2zds.zaakbrug.async.ignoreCertificateExpiredException}"
+                    truststore="${openformulieren2zds.zaakbrug.async.truststore.uri}"
+                    truststoreAuthAlias="${openformulieren2zds.zaakbrug.async.truststore.authAlias}"
+                    truststoreType="${openformulieren2zds.zaakbrug.async.truststore.type}"
+                    keystore="${openformulieren2zds.zaakbrug.async.keystore.uri}"
+                    keystoreAuthAlias="${openformulieren2zds.zaakbrug.async.keystore.authAlias}"
+                    keystoreType="${openformulieren2zds.zaakbrug.async.keystore.type}">
                     <Param name="SOAPAction" sessionKey="SOAPAction" />
                 </WebServiceSender>
-                <Forward name="success" path="EXIT" />
+                <Forward name="success" path="SendToSSD" />
                 <Forward name="exception" path="BackEndError" />
             </SenderPipe>
 
+            <SenderPipe
+                name="SendToSSD">
+                <WebServiceSender
+                    name="SendToSSDSender"
+                    soap="true"
+                    soapActionParam="SOAPAction"
+                    url="${openformulieren2zds.SSD.async.url}"
+                    timeout="${openformulieren2zds.SSD.async.timeout}"
+                    verifyHostname="${openformulieren2zds.SSD.async.verifyHostname}"
+                    allowSelfSignedCertificates="${openformulieren2zds.SSD.async.allowSelfSignedCertificates}"
+                    disableCookies="${openformulieren2zds.SSD.async.disableCookies}"
+                    ignoreCertificateExpiredException="${openformulieren2zds.SSD.async.ignoreCertificateExpiredException}"
+                    truststore="${openformulieren2zds.SSD.async.truststore.uri}"
+                    truststoreAuthAlias="${openformulieren2zds.SSD.async.truststore.authAlias}"
+                    truststoreType="${openformulieren2zds.SSD.async.truststore.type}"
+                    keystore="${openformulieren2zds.SSD.async.keystore.uri}"
+                    keystoreAuthAlias="${openformulieren2zds.SSD.async.keystore.authAlias}"
+                    keystoreType="${openformulieren2zds.SSD.async.keystore.type}">
+                    <Param name="SOAPAction" sessionKey="SOAPAction" />
+                </WebServiceSender>
+                <Forward name="success" path="EchoZaakbrugResponse" />
+                <Forward name="exception" path="BackEndError" />
+            </SenderPipe>
+
+            <EchoPipe
+                name="EchoZaakbrugResponse"
+                getInputFromSessionKey="zaakbrugResponse">
+                <Forward name="success" path="EXIT"/>
+            </EchoPipe>
+
+            <!-- ERRORS -->
             <XsltPipe
                 name="UnsupportedSoapActionError"
                 getInputFromFixedValue="&lt;dummy/&gt;"
@@ -128,12 +159,12 @@
                 name="WrapFo03Response"
                 emptyInputReplacement="&lt;EmptyInput/&gt;"
                 soapBodyStyleSheet="Common/xsl/CreateFo03Response.xslt">
-                <Param name="Stuurgegevens" sessionKey="Stuurgegevens" type="DOMDOC" />
-                <Param name="Parameters" sessionKey="Parameters" type="DOMDOC" />
-                <Param name="errorCode"   sessionKey="errorCode" />
-                <Param name="errorReason" sessionKey="errorReason" />
-                <Param name="errorDetailText" sessionKey="errorDetailText" />
-                <Param name="errorDetailXML" sessionKey="errorDetailXML" type="DOMDOC" />
+                <Param name="Stuurgegevens" sessionKey="Stuurgegevens" type="DOMDOC"/>
+                <Param name="Parameters" sessionKey="Parameters" type="DOMDOC"/>
+                <Param name="errorCode"   sessionKey="errorCode"/>
+                <Param name="errorReason" sessionKey="errorReason"/>
+                <Param name="errorDetailText" sessionKey="errorDetailText"/>
+                <Param name="errorDetailXML" sessionKey="errorDetailXML" type="DOMDOC"/>
                 <Forward name="success" path="EXIT"/>
             </SoapWrapperPipe>
 
