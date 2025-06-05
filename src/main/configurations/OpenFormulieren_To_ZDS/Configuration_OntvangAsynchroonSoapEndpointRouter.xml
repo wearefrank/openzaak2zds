@@ -78,6 +78,7 @@
                     truststoreAuthAlias="${openformulieren2zds.zaakbrug.async.truststore.authAlias}"
                     truststoreType="${openformulieren2zds.zaakbrug.async.truststore.type}"
                     keystore="${openformulieren2zds.zaakbrug.async.keystore.uri}"
+                    keystoreAlias="${openformulieren2zds.SSD.async.keystore.alias}"
                     keystoreAuthAlias="${openformulieren2zds.zaakbrug.async.keystore.authAlias}"
                     keystoreType="${openformulieren2zds.zaakbrug.async.keystore.type}">
                     <Param name="SOAPAction" sessionKey="SOAPAction" />
