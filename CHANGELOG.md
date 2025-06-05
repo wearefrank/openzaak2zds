@@ -1,5 +1,11 @@
 [![conventional commits](https://img.shields.io/badge/conventional%20commits-1.0.0-yellow.svg)](https://conventionalcommits.org) [![semantic versioning](https://img.shields.io/badge/semantic%20versioning-2.0.0-green.svg)](https://semver.org)
 
+## [1.1.6](https://github.com/wearefrank/openzaak2zds/compare/v1.1.5...v1.1.6) (2025-06-05)
+
+### 🐛 Bug Fixes
+
+* add property to specify keystore alias for ssd sender ([e5bf82e](https://github.com/wearefrank/openzaak2zds/commit/e5bf82e13e63c01621e09ed4deb26356e39394d1))
+
 ## [1.1.5](https://github.com/wearefrank/openzaak2zds/compare/v1.1.4...v1.1.5) (2025-06-04)
 
 ### 🐛 Bug Fixes
