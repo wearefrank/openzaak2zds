@@ -1,5 +1,11 @@
 [![conventional commits](https://img.shields.io/badge/conventional%20commits-1.0.0-yellow.svg)](https://conventionalcommits.org) [![semantic versioning](https://img.shields.io/badge/semantic%20versioning-2.0.0-green.svg)](https://semver.org)
 
+## [1.1.7](https://github.com/wearefrank/openzaak2zds/compare/v1.1.6...v1.1.7) (2025-06-12)
+
+### 🐛 Bug Fixes
+
+* move keystoreAlias to the correct sender ([4ad999c](https://github.com/wearefrank/openzaak2zds/commit/4ad999c502e69f15f21a89f2328cfe874101480d))
+
 ## [1.1.6](https://github.com/wearefrank/openzaak2zds/compare/v1.1.5...v1.1.6) (2025-06-05)
 
 ### 🐛 Bug Fixes
