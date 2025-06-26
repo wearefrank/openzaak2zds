@@ -13,6 +13,6 @@
 
     <xsl:template match="ZKN:code">
         <xsl:copy-of select="."/>
-        <ZKN:Zaaktype><xsl:value-of select="."/></ZKN:Zaaktype>
+        <Zaaktype><xsl:value-of select="."/></Zaaktype>
     </xsl:template>
 </xsl:stylesheet>
