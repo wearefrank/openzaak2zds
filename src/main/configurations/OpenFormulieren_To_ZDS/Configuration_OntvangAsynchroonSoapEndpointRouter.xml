@@ -82,11 +82,9 @@
                     keystoreType="${openformulieren2zds.zaakbrug.async.keystore.type}">
                     <Param name="SOAPAction" sessionKey="SOAPAction" />
                 </WebServiceSender>
-                <Forward name="success" path="AddZaakType" />
+                <Forward name="success" path="SendToSSD" />
                 <Forward name="exception" path="BackEndError" />
             </SenderPipe>
-
-            <XsltPipe name="AddZaakType" styleSheetName="xsl/addZaakType.xsl"/>
 
             <SenderPipe
                 name="SendToSSD">
