@@ -1,5 +1,11 @@
 [![conventional commits](https://img.shields.io/badge/conventional%20commits-1.0.0-yellow.svg)](https://conventionalcommits.org) [![semantic versioning](https://img.shields.io/badge/semantic%20versioning-2.0.0-green.svg)](https://semver.org)
 
+## [1.1.10](https://github.com/wearefrank/openzaak2zds/compare/v1.1.9...v1.1.10) (2025-06-30)
+
+### 🐛 Bug Fixes
+
+* remove 'addzaaktype' when sending to SSD ([9f07d9d](https://github.com/wearefrank/openzaak2zds/commit/9f07d9d74d49d23b53e98a1ebb7b4d7e3b8cc075))
+
 ## [1.1.9](https://github.com/wearefrank/openzaak2zds/compare/v1.1.8...v1.1.9) (2025-06-26)
 
 ### 🐛 Bug Fixes
