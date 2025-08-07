@@ -82,9 +82,26 @@
                     keystoreType="${openformulieren2zds.zaakbrug.async.keystore.type}">
                     <Param name="SOAPAction" sessionKey="SOAPAction" />
                 </WebServiceSender>
-                <Forward name="success" path="SendToSSD" />
+                <Forward name="success" path="ForwardBySoapActionSwitch2" />
                 <Forward name="exception" path="BackEndError" />
             </SenderPipe>
+
+            <XmlSwitchPipe
+                    name="ForwardBySoapActionSwitch2"
+                    forwardNameSessionKey="LegalizedSoapAction"
+                    notFoundForwardName="UnsupportedSoapActionError"/>
+
+            <!-- CreeerZaak_Lk01 -->
+            <EchoPipe
+                    name="http:__www.egem.nl_StUF_sector_zkn_0310_creeerZaak_Lk01">
+                <Forward name="success" path="SendToSSD" />
+            </EchoPipe>
+
+            <!-- VoegZaakdocumentToe_Lk01 -->
+            <EchoPipe
+                    name="http:__www.egem.nl_StUF_sector_zkn_0310_voegZaakdocumentToe_Lk01">
+                <Forward name="success" path="EXIT" />
+            </EchoPipe>
 
             <SenderPipe
                 name="SendToSSD">
