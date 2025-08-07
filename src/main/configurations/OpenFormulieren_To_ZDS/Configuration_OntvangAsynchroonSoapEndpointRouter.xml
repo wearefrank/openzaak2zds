@@ -82,24 +82,30 @@
                     keystoreType="${openformulieren2zds.zaakbrug.async.keystore.type}">
                     <Param name="SOAPAction" sessionKey="SOAPAction" />
                 </WebServiceSender>
-                <Forward name="success" path="ForwardBySoapActionSwitch2" />
+                <Forward name="success" path="PutSoapActionInSession2" />
                 <Forward name="exception" path="BackEndError" />
             </SenderPipe>
 
+            <PutInSessionPipe name="PutSoapActionInSession2">
+                <Param name="LegalizedSoapAction2" pattern="2_{LegalizedSoapAction}">
+                    <Param name="LegalizedSoapAction" sessionKey="LegalizedSoapAction"/>
+                </Param>
+            </PutInSessionPipe>
+
             <XmlSwitchPipe
                     name="ForwardBySoapActionSwitch2"
-                    forwardNameSessionKey="LegalizedSoapAction"
+                    forwardNameSessionKey="PutSoapActionInSession2"
                     notFoundForwardName="UnsupportedSoapActionError"/>
 
             <!-- CreeerZaak_Lk01 -->
             <EchoPipe
-                    name="http:__www.egem.nl_StUF_sector_zkn_0310_creeerZaak_Lk01">
+                    name="2_http:__www.egem.nl_StUF_sector_zkn_0310_creeerZaak_Lk01">
                 <Forward name="success" path="SendToSSD" />
             </EchoPipe>
 
             <!-- VoegZaakdocumentToe_Lk01 -->
             <EchoPipe
-                    name="http:__www.egem.nl_StUF_sector_zkn_0310_voegZaakdocumentToe_Lk01">
+                    name="2_http:__www.egem.nl_StUF_sector_zkn_0310_voegZaakdocumentToe_Lk01">
                 <Forward name="success" path="EXIT" />
             </EchoPipe>
 
