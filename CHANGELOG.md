@@ -1,5 +1,11 @@
 [![conventional commits](https://img.shields.io/badge/conventional%20commits-1.0.0-yellow.svg)](https://conventionalcommits.org) [![semantic versioning](https://img.shields.io/badge/semantic%20versioning-2.0.0-green.svg)](https://semver.org)
 
+## [1.1.11](https://github.com/wearefrank/openzaak2zds/compare/v1.1.10...v1.1.11) (2025-08-07)
+
+### 🐛 Bug Fixes
+
+* send only creeerzaak to SSD ([b09c79c](https://github.com/wearefrank/openzaak2zds/commit/b09c79c9a0feef5907ffb1052a2a86230f877cc3))
+
 ## [1.1.10](https://github.com/wearefrank/openzaak2zds/compare/v1.1.9...v1.1.10) (2025-06-30)
 
 ### 🐛 Bug Fixes
