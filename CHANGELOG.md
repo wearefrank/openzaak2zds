@@ -1,5 +1,11 @@
 [![conventional commits](https://img.shields.io/badge/conventional%20commits-1.0.0-yellow.svg)](https://conventionalcommits.org) [![semantic versioning](https://img.shields.io/badge/semantic%20versioning-2.0.0-green.svg)](https://semver.org)
 
+## [1.1.12](https://github.com/wearefrank/openzaak2zds/compare/v1.1.11...v1.1.12) (2025-09-17)
+
+### 🐛 Bug Fixes
+
+* forwarded by wrong sessionKey ([9a7072a](https://github.com/wearefrank/openzaak2zds/commit/9a7072abc2d91809b2ad3e092823579549f7a037))
+
 ## [1.1.11](https://github.com/wearefrank/openzaak2zds/compare/v1.1.10...v1.1.11) (2025-08-07)
 
 ### 🐛 Bug Fixes
