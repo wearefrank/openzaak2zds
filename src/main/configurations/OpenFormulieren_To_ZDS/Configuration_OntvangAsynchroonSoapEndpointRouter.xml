@@ -94,7 +94,7 @@
 
             <XmlSwitchPipe
                     name="ForwardBySoapActionSwitch2"
-                    forwardNameSessionKey="PutSoapActionInSession2"
+                    forwardNameSessionKey="LegalizedSoapAction2"
                     notFoundForwardName="UnsupportedSoapActionError"/>
 
             <!-- CreeerZaak_Lk01 -->
