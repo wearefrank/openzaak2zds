@@ -173,9 +173,9 @@
                 name="BackEndError"
                 unlessSessionKey="errorCode">
                 <Param name="errorCode" styleSheetName="Common/xsl/BackEndError.xsl" />
-                <Param name="errorReason" xpathExpression="(//error)[last()]/reason" />
-                <Param name="errorDetailText" xpathExpression="(//error)[last()]/details" />
-                <Param name="errorDetailXML" xpathExpression="/error" type="DOMDOC" />
+                <Param name="errorReason" xpathExpression="(//errorMessage)[last()]/reason" />
+                <Param name="errorDetailText" xpathExpression="(//errorMessage)[last()]/details" />
+                <Param name="errorDetailXML" xpathExpression="/errorMessage" type="DOMDOC" />
                 <Forward name="success" path="WrapFo03Response" />
             </PutInSessionPipe>
 
@@ -189,7 +189,7 @@
                 <Param name="errorReason" sessionKey="errorReason"/>
                 <Param name="errorDetailText" sessionKey="errorDetailText"/>
                 <Param name="errorDetailXML" sessionKey="errorDetailXML" type="DOMDOC"/>
-                <Forward name="success" path="EXIT"/>
+                <Forward name="success" path="EXCEPTION"/>
             </SoapWrapperPipe>
 
         </Pipeline>
